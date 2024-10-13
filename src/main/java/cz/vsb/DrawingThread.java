@@ -30,7 +30,7 @@ public class DrawingThread extends AnimationTimer {
         this.gc = canvas.getGraphicsContext2D();
         this.map = new GameMap();
         this.player1 = new Player(this.map, 1, 1, "/Player1/");
-        this.player2 = new Player(this.map, 13, 9, "/Player1/");
+        this.player2 = new Player(this.map, 13, 9, "/Player2/");
         setupControls();
     }
 
