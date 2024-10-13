@@ -22,6 +22,9 @@ public class DrawingThread extends AnimationTimer {
     private boolean leftPressed2 = false;
     private boolean rightPressed2 = false;
 
+    private boolean spacePressed = false;
+    private boolean mPressed = false;
+
     public DrawingThread(Canvas canvas) {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
@@ -42,6 +45,8 @@ public class DrawingThread extends AnimationTimer {
                 case DOWN -> downPressed2 = true;
                 case LEFT -> leftPressed2 = true;
                 case RIGHT -> rightPressed2 = true;
+                case SPACE -> spacePressed = true; //  pro hráče 1
+                case M -> mPressed = true; // pro hráče 2
             }
         });
 
@@ -55,6 +60,8 @@ public class DrawingThread extends AnimationTimer {
                 case DOWN -> downPressed2 = false;
                 case LEFT -> leftPressed2 = false;
                 case RIGHT -> rightPressed2 = false;
+                case SPACE -> spacePressed = false;
+                case M -> mPressed = false;
             }
         });
     }
@@ -62,51 +69,50 @@ public class DrawingThread extends AnimationTimer {
     @Override
     public void handle(long now) {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
         map.draw(gc);
 
-        // Pohyb hráče 1 (WASD)
-        if (upPressed1) {
-            player1.move(0, -1);
-            player1.changeImage(3);
+        handlePlayerMovement(player1, upPressed1, downPressed1, leftPressed1, rightPressed1);
+        handlePlayerMovement(player2, upPressed2, downPressed2, leftPressed2, rightPressed2);
+
+        if (spacePressed) {
+            player1.placeBomb();
         }
-        if (downPressed1) {
-            player1.move(0, 1);
-            player1.changeImage(4);
-        }
-        if (leftPressed1) {
-            player1.move(-1, 0);
-            player1.changeImage(2);
-        }
-        if (rightPressed1) {
-            player1.move(1, 0);
-            player1.changeImage(1);
-        }
-        if (!upPressed1 && !downPressed1 && !leftPressed1 && !rightPressed1) {
-            player1.changeImage(0);
+        if (mPressed) {
+            player2.placeBomb();
         }
 
-        // Pohyb hráče 2 (šipky)
-        if (upPressed2) {
-            player2.move(0, -1);
-            player2.changeImage(3);
-        }
-        if (downPressed2) {
-            player2.move(0, 1);
-            player2.changeImage(4);
-        }
-        if (leftPressed2) {
-            player2.move(-1, 0);
-            player2.changeImage(2);
-        }
-        if (rightPressed2) {
-            player2.move(1, 0);
-            player2.changeImage(1);
-        }
-        if (!upPressed2 && !downPressed2 && !leftPressed2 && !rightPressed2) {
-            player2.changeImage(0);
-        }
 
-        player1.draw(gc);
-        player2.draw(gc);
+        updateAndDrawBombs(player1);
+        updateAndDrawBombs(player2);
     }
+
+    private void handlePlayerMovement(Player player, boolean up, boolean down, boolean left, boolean right) {
+        if (up) {
+            player.move(0, -1);
+            player.changeImage(3);
+        }
+        if (down) {
+            player.move(0, 1);
+            player.changeImage(4);
+        }
+        if (left) {
+            player.move(-1, 0);
+            player.changeImage(2);
+        }
+        if (right) {
+            player.move(1, 0);
+            player.changeImage(1);
+        }
+        if (!up && !down && !left && !right) {
+            player.changeImage(0);
+        }
+    }
+
+    private void updateAndDrawBombs(Player player) {
+        player.updateBombs();
+        player.draw(gc);
+    }
+
+
 }

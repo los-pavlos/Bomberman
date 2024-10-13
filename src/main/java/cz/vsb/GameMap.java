@@ -100,15 +100,23 @@ class GameMap {
 
 
     // Funkce pro destrukci bloku
-    public void destroyBlock(int x, int y) {
-        // Kontrola, jestli jsou souřadnice platné a jestli se jedná o zničitelný blok
-        if (x < 0 || y < 0 || x >= cols || y >= rows) {
-            return;
+    public void destroyBlock(int col, int row) {
+        if (blocks[row][col] instanceof DestructibleBlock) {
+            blocks[row][col] = new EmptyBlock(col,row);
         }
+    }
 
-        if (blocks[y][x] instanceof DestructibleBlock) {
-            // Nahrazení zničitelného bloku instancí EmptyBlock
-            blocks[y][x] = new EmptyBlock(x, y);
+
+    public int getCols() {
+        return cols;
+    }
+    public int getRows() {
+        return rows;
+    }
+    public Block getBlock(int col, int row) {
+        if (col < 0 || col >= cols || row < 0 || row >= rows) {
+            return null; // Return null for out-of-bounds
         }
+        return blocks[row][col];
     }
 }

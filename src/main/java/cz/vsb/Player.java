@@ -2,6 +2,8 @@ package cz.vsb;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private int x;
@@ -16,11 +18,14 @@ public class Player {
     private final int size = 80;
     private GameMap map;
 
+    private Bomb currentBomb; // Aktuálně položená bomba
+
     public Player(GameMap map, int startX, int startY, String imagePath) {
         this.x = startX * 80;
         this.y = startY * 80;
         this.speed = 1; // Výchozí rychlost hráče, bude 2 po sebrání boostu
         this.map = map;
+
         this.standingImage = new Image(getClass().getResourceAsStream(imagePath + "standing.gif"));
         this.rightImage = new Image(getClass().getResourceAsStream(imagePath + "right.gif"));
         this.leftImage = new Image(getClass().getResourceAsStream(imagePath + "left.gif"));
@@ -40,8 +45,35 @@ public class Player {
         }
     }
 
+    public void placeBomb() {
+        //  pokud je tu bomba nejde polozit druha
+        if (currentBomb != null && currentBomb.isActive()) {
+            return;
+        }
+
+        // Place a new bomb
+        currentBomb = new Bomb(this.map, (x+40) / size, (y+40) / size, 3);
+    }
+
+    public Bomb getCurrentBomb() {
+        return currentBomb; // Získat aktuální bombu
+    }
+
+    public void updateBombs() {
+        if (currentBomb != null) {
+            currentBomb.checkExplosion(); // Check if the bomb should explode
+            if (!currentBomb.isActive() && currentBomb.hasExplosionEnded()) {
+                currentBomb = null; // Remove the bomb after the explosion ends
+            }
+        }
+    }
+
     public void draw(GraphicsContext gc) {
         gc.drawImage(activeImage, x, y, size, size);
+        // Vykresli aktuální bombu
+        if (currentBomb != null) {
+            currentBomb.draw(gc);
+        }
     }
 
     public int getX() {
