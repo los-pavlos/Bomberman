@@ -59,13 +59,45 @@ class GameMap {
         }
     }
 
-    public boolean isEmpty(int x, int y) {
-        // Mimo hranice mapy
-        if (x < 0 || y < 0 || x >= cols || y >= rows) {
-            return false;
+    public boolean isEmpty(int pixelX, int pixelY) {
+        int blockSize = 80;
+
+        // Vypočítání blokových souřadnic pro čtyři rohy
+        int topLeftX = pixelX / blockSize;
+        int topLeftY = pixelY / blockSize;
+
+        int topRightX = (pixelX + blockSize - 1) / blockSize;
+        int topRightY = pixelY / blockSize;
+
+        int bottomLeftX = pixelX / blockSize;
+        int bottomLeftY = (pixelY + blockSize - 1) / blockSize;
+
+        int bottomRightX = (pixelX + blockSize - 1) / blockSize;
+        int bottomRightY = (pixelY + blockSize - 1) / blockSize;
+
+        // Kontrola, zda jsou všechny čtyři rohové bloky prázdné
+        int[][] corners = {
+                {topLeftX, topLeftY},
+                {topRightX, topRightY},
+                {bottomLeftX, bottomLeftY},
+                {bottomRightX, bottomRightY}
+        };
+
+        for (int[] corner : corners) {
+            int x = corner[0];
+            int y = corner[1];
+
+            if (x < 0 || y < 0 || x >= cols || y >= rows) {
+                return false;
+            }
+            if (!(blocks[y][x] instanceof EmptyBlock)) {
+                return false;
+            }
         }
-        return (blocks[y][x] instanceof EmptyBlock);
+
+        return true;
     }
+
 
     // Funkce pro destrukci bloku
     public void destroyBlock(int x, int y) {

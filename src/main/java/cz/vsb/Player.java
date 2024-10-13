@@ -2,12 +2,11 @@ package cz.vsb;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class Player {
     private int x;
     private int y;
+    private int speed;
     private Image activeImage;
     private Image standingImage;
     private Image leftImage;
@@ -15,10 +14,13 @@ public class Player {
     private Image upImage;
     private Image downImage;
     private final int size = 80;
+    private GameMap map;
 
-    public Player(int startX, int startY, String imagePath) {
-        this.x = startX;
-        this.y = startY;
+    public Player(GameMap map, int startX, int startY, String imagePath) {
+        this.x = startX * 80;
+        this.y = startY * 80;
+        this.speed = 1; // Výchozí rychlost hráče, bude 2 po sebrání boostu
+        this.map = map;
         this.standingImage = new Image(getClass().getResourceAsStream(imagePath + "standing.gif"));
         this.rightImage = new Image(getClass().getResourceAsStream(imagePath + "right.gif"));
         this.leftImage = new Image(getClass().getResourceAsStream(imagePath + "left.gif"));
@@ -27,10 +29,11 @@ public class Player {
         this.activeImage = standingImage;
     }
 
-    public void move(int deltaX, int deltaY, GameMap map) {
-        int newX = x + deltaX;
-        int newY = y + deltaY;
+    public void move(int deltaX, int deltaY) {
+        int newX = x + deltaX * speed;
+        int newY = y + deltaY * speed;
 
+        // Kontrola, zda je nová pozice volná
         if (map.isEmpty(newX, newY)) {
             x = newX;
             y = newY;
@@ -38,7 +41,7 @@ public class Player {
     }
 
     public void draw(GraphicsContext gc) {
-        gc.drawImage(activeImage, x * size, y * size, size, size);
+        gc.drawImage(activeImage, x, y, size, size);
     }
 
     public int getX() {
@@ -48,6 +51,7 @@ public class Player {
     public int getY() {
         return y;
     }
+
     public void changeImage(int direction) {
         switch (direction) {
             case 0: this.activeImage = this.standingImage; break;
@@ -56,5 +60,17 @@ public class Player {
             case 3: this.activeImage = this.upImage; break;
             case 4: this.activeImage = this.downImage; break;
         }
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    private boolean canMove(int newX, int newY) {
+        return map.isEmpty(newX, newY);
     }
 }
