@@ -72,22 +72,16 @@ public class DrawingThread extends AnimationTimer {
 
         map.draw(gc);
 
-        handlePlayerMovement(player1, upPressed1, downPressed1, leftPressed1, rightPressed1);
-        handlePlayerMovement(player2, upPressed2, downPressed2, leftPressed2, rightPressed2);
+        handlePlayerMovement(player1, upPressed1, downPressed1, leftPressed1, rightPressed1, spacePressed);
+        handlePlayerMovement(player2, upPressed2, downPressed2, leftPressed2, rightPressed2, mPressed);
 
-        if (spacePressed) {
-            player1.placeBomb();
-        }
-        if (mPressed) {
-            player2.placeBomb();
-        }
 
 
         updateAndDrawBombs(player1);
         updateAndDrawBombs(player2);
     }
 
-    private void handlePlayerMovement(Player player, boolean up, boolean down, boolean left, boolean right) {
+    private void handlePlayerMovement(Player player, boolean up, boolean down, boolean left, boolean right, boolean placingBomb) {
         if (up) {
             player.move(0, -1);
             player.changeImage(3);
@@ -106,6 +100,9 @@ public class DrawingThread extends AnimationTimer {
         }
         if (!up && !down && !left && !right) {
             player.changeImage(0);
+        }
+        if (placingBomb) {
+            player.placeBomb();
         }
     }
 

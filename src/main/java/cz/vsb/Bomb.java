@@ -91,4 +91,5 @@ public class Bomb {
     public boolean hasExplosionEnded() {
         return (System.currentTimeMillis() - explosionStartTime >= explosionDuration);
     }
+
 }

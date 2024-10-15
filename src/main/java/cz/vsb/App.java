@@ -19,7 +19,6 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-
 			Group root = new Group();
 			canvas = new Canvas(1200, 880);
 			root.getChildren().add(canvas);
@@ -28,7 +27,6 @@ public class App extends Application {
 			primaryStage.resizableProperty().set(false);
 			primaryStage.setTitle("Bomberman Game");
 			primaryStage.show();
-
 
 			primaryStage.setOnCloseRequest(this::exitProgram);
 			timer = new DrawingThread(canvas);
