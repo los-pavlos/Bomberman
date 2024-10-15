@@ -3,7 +3,7 @@ package cz.vsb;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class Bomb {
+public class Bomb implements Drawable {
     private final int x;  // v blocích...
     private final int y;
     private final int range; // Range výbuchu
@@ -26,6 +26,8 @@ public class Bomb {
         this.explosionImage = new Image(getClass().getResourceAsStream("/Bomb/explosion.gif"));
     }
 
+
+    @Override
     public void draw(GraphicsContext gc) {
         if (isActive) {
             gc.drawImage(bombImage, x * 80, y * 80, 80, 80);

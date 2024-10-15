@@ -1,7 +1,7 @@
 package cz.vsb;
 import javafx.scene.canvas.GraphicsContext;
 
-class GameMap {
+class GameMap implements Drawable {
     private Block[][] blocks;   // 2D pole bloků
     private final int rows = 11;
     private final int cols = 15;
@@ -51,6 +51,7 @@ class GameMap {
         return false;
     }
 
+    @Override
     public void draw(GraphicsContext gc) {
         for (int row = 0; row < blocks.length; row++) {
             for (int col = 0; col < blocks[row].length; col++) {
@@ -98,21 +99,20 @@ class GameMap {
         return true;
     }
 
-
-    // Funkce pro destrukci bloku
     public void destroyBlock(int col, int row) {
         if (blocks[row][col] instanceof DestructibleBlock) {
             blocks[row][col] = new EmptyBlock(col,row);
         }
     }
 
-
     public int getCols() {
         return cols;
     }
+
     public int getRows() {
         return rows;
     }
+
     public Block getBlock(int col, int row) {
         if (col < 0 || col >= cols || row < 0 || row >= rows) {
             return null; // Return null for out-of-bounds

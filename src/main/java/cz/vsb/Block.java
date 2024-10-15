@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import java.io.IOException;
 import java.io.InputStream;
 
-abstract class Block {
+abstract class Block implements Drawable {
     protected int x;
     protected int y;
     protected final int size = 80;
@@ -25,6 +25,7 @@ abstract class Block {
         }
     }
 
+    @Override
     public void draw(GraphicsContext gc) {
         gc.drawImage(image, x * size, y * size, size, size);
     }

@@ -25,12 +25,15 @@ public class DrawingThread extends AnimationTimer {
     private boolean spacePressed = false;
     private boolean mPressed = false;
 
+    private Drawable[] drawables;
+
     public DrawingThread(Canvas canvas) {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         this.map = new GameMap();
         this.player1 = new Player(this.map, 1, 1, "/Player1/");
         this.player2 = new Player(this.map, 13, 9, "/Player2/");
+        this.drawables = new Drawable[]{map, player1, player2};
         setupControls();
     }
 
@@ -70,15 +73,13 @@ public class DrawingThread extends AnimationTimer {
     public void handle(long now) {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        map.draw(gc);
+        for(Drawable drawable : drawables) {
+            drawable.draw(gc);
+        }
 
         handlePlayerMovement(player1, upPressed1, downPressed1, leftPressed1, rightPressed1, spacePressed);
         handlePlayerMovement(player2, upPressed2, downPressed2, leftPressed2, rightPressed2, mPressed);
 
-
-
-        updateAndDrawBombs(player1);
-        updateAndDrawBombs(player2);
     }
 
     private void handlePlayerMovement(Player player, boolean up, boolean down, boolean left, boolean right, boolean placingBomb) {
@@ -106,10 +107,7 @@ public class DrawingThread extends AnimationTimer {
         }
     }
 
-    private void updateAndDrawBombs(Player player) {
-        player.updateBombs();
-        player.draw(gc);
-    }
+
 
 
 }

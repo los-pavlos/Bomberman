@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 
-public class Player {
+public class Player implements Drawable {
     private int x;
     private int y;
     private int speed;
@@ -66,12 +66,13 @@ public class Player {
         }
     }
 
+    @Override
     public void draw(GraphicsContext gc) {
         gc.drawImage(activeImage, x, y, size, size);
-        // Vykresli aktuální bombu
         if (currentBomb != null) {
             currentBomb.draw(gc);
         }
+        updateBombs();
     }
 
     public int getX() {
