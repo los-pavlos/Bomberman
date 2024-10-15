@@ -45,12 +45,11 @@ public class Player {
     }
 
     public void placeBomb() {
-        //  pokud je tu bomba nejde polozit druha
-        if (currentBomb != null && currentBomb.isActive()) {
+        //  pokud je druha aktivni bomba, nebo jeste je vybuch - nejde polozit druha
+        if (currentBomb != null && currentBomb.isActive() || currentBomb != null && !currentBomb.hasExplosionEnded()) {
             return;
         }
 
-        // Place a new bomb
         currentBomb = new Bomb(this.map, (x+40) / size, (y+40) / size, 3);
     }
 
