@@ -119,4 +119,8 @@ class GameMap implements Drawable {
         }
         return blocks[row][col];
     }
+
+    public void reset() {
+        generateMap();
+    }
 }

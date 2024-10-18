@@ -5,12 +5,15 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DrawingThread extends AnimationTimer {
     private final Canvas canvas;
     private final GraphicsContext gc;
     private final GameMap map;
-    private final Player player1;
-    private final Player player2;
+    private  Player player1;
+    private  Player player2;
 
     private boolean upPressed1 = false;
     private boolean downPressed1 = false;
@@ -26,7 +29,7 @@ public class DrawingThread extends AnimationTimer {
     private boolean mPressed = false;
 
     private Drawable[] drawables;
-
+    private long lastUpdate = 0;
     public DrawingThread(Canvas canvas) {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
@@ -71,15 +74,19 @@ public class DrawingThread extends AnimationTimer {
 
     @Override
     public void handle(long now) {
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        if (now - lastUpdate >= 16_000_000) { // 16 milisekund (cca 60fps)
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        for(Drawable drawable : drawables) {
-            drawable.draw(gc);
+            for (Drawable drawable : drawables) {
+                drawable.draw(gc);
+            }
+
+            handlePlayerMovement(player1, upPressed1, downPressed1, leftPressed1, rightPressed1, spacePressed);
+            handlePlayerMovement(player2, upPressed2, downPressed2, leftPressed2, rightPressed2, mPressed);
+
+
+            lastUpdate = now;
         }
-
-        handlePlayerMovement(player1, upPressed1, downPressed1, leftPressed1, rightPressed1, spacePressed);
-        handlePlayerMovement(player2, upPressed2, downPressed2, leftPressed2, rightPressed2, mPressed);
-
     }
 
     private void handlePlayerMovement(Player player, boolean up, boolean down, boolean left, boolean right, boolean placingBomb) {
@@ -107,7 +114,10 @@ public class DrawingThread extends AnimationTimer {
         }
     }
 
+    private void resetGame() {
+        map.reset();
+        this.player1 = new Player(this.map, 1, 1, "/Player1/");
+        this.player2 = new Player(this.map, 13, 9, "/Player2/");
 
-
-
+    }
 }

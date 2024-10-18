@@ -3,6 +3,8 @@ package cz.vsb;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.util.List;
+
 
 public class Player implements Drawable {
     private int x;
@@ -17,12 +19,12 @@ public class Player implements Drawable {
     private final int size = 80;
     private GameMap map;
 
-    private Bomb currentBomb; // Aktuálně položená bomba
+    public Bomb currentBomb; // Aktuálně položená bomba
 
     public Player(GameMap map, int startX, int startY, String imagePath) {
         this.x = startX * 80;
         this.y = startY * 80;
-        this.speed = 1; // Výchozí rychlost hráče, bude 2 po sebrání boostu
+        this.speed = 4; // Výchozí rychlost hráče, bude 2 po sebrání boostu
         this.map = map;
 
         this.standingImage = new Image(getClass().getResourceAsStream(imagePath + "standing.gif"));
@@ -104,4 +106,10 @@ public class Player implements Drawable {
     private boolean canMove(int newX, int newY) {
         return map.isEmpty(newX, newY);
     }
+
+    public Bomb getBomb() {
+        return currentBomb;
+    }
+
+
 }
