@@ -28,6 +28,7 @@ public class App extends Application {
 			primaryStage.setTitle("Bomberman Game");
 			primaryStage.show();
 
+
 			primaryStage.setOnCloseRequest(this::exitProgram);
 			timer = new DrawingThread(canvas);
 			timer.start();

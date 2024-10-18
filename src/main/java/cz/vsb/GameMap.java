@@ -1,10 +1,17 @@
 package cz.vsb;
 import javafx.scene.canvas.GraphicsContext;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 class GameMap implements Drawable {
     private Block[][] blocks;   // 2D pole bloků
     private final int rows = 11;
     private final int cols = 15;
+
+    //  list of bombs
+    private List<Bomb> bombs = new ArrayList<>();
 
     public GameMap() {
         blocks = new Block[rows][cols];
@@ -56,6 +63,18 @@ class GameMap implements Drawable {
         for (int row = 0; row < blocks.length; row++) {
             for (int col = 0; col < blocks[row].length; col++) {
                 blocks[row][col].draw(gc);
+            }
+        }
+        //  kvuli odstranovani behem iterace
+        Iterator<Bomb> iterator = bombs.iterator();
+        while (iterator.hasNext()) {
+            Bomb bomb = iterator.next();
+
+            if (!bomb.isActive() && bomb.hasExplosionEnded()) {
+                iterator.remove(); // Bezpečné odstranění během iterace
+            } else {
+                bomb.checkExplosion(); // Check if the bomb should explode
+                bomb.draw(gc);
             }
         }
     }
@@ -123,4 +142,10 @@ class GameMap implements Drawable {
     public void reset() {
         generateMap();
     }
+
+    public void addBomb(Bomb bomb) {
+        bombs.add(bomb);
+    }
+
+
 }
