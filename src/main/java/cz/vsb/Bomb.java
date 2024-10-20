@@ -1,5 +1,6 @@
 package cz.vsb;
 
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -94,6 +95,57 @@ public class Bomb implements Drawable {
         return (System.currentTimeMillis() - explosionStartTime >= explosionDuration);
     }
 
+    public boolean isInRange(int playerX, int playerY) {
+        int bombX = x;
+        int bombY = y;
+        playerX = playerX / 80;
+        playerY = playerY / 80;
+        // Check the bomb's position
+        if (playerX == bombX && playerY == bombY) {
+            return true;
+        }
 
+        // Check left
+        for (int i = 1; i <= range; i++) {
+            if (playerX == bombX - i && playerY == bombY) {
+                return true;
+            }
+            if (map.getBlock(x - i, y) instanceof IndestructibleBlock) {
+                break;
+            }
+        }
+
+        // Check right
+        for (int i = 1; i <= range; i++) {
+            if (playerX == bombX + i && playerY == bombY) {
+                return true;
+            }
+            if (map.getBlock(x + i, y) instanceof IndestructibleBlock) {
+                break;
+            }
+        }
+
+        // Check up
+        for (int i = 1; i <= range; i++) {
+            if (playerX == bombX && playerY == bombY - i) {
+                return true;
+            }
+            if (map.getBlock(x, y - i) instanceof IndestructibleBlock) {
+                break;
+            }
+        }
+
+        // Check down
+        for (int i = 1; i <= range; i++) {
+            if (playerX == bombX && playerY == bombY + i) {
+                return true;
+            }
+            if (map.getBlock(x, y + i) instanceof IndestructibleBlock) {
+                break;
+            }
+        }
+
+        return false;
+    }
 
 }

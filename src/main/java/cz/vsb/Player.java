@@ -18,7 +18,8 @@ public class Player implements Drawable {
     private Image downImage;
     private final int size = 80;
     private GameMap map;
-
+    private long bombDelay = 2500;
+    private long lastBombTime = 0;
     public Player(GameMap map, int startX, int startY, String imagePath) {
         this.x = startX * 80;
         this.y = startY * 80;
@@ -47,9 +48,14 @@ public class Player implements Drawable {
 
 
     public void placeBomb() {
+        //  delay for placing bomb
+        if(System.currentTimeMillis() - lastBombTime < bombDelay) {
+            return;
+        }
         int bombX = (x + size / 2) / size;
         int bombY = (y + size / 2) / size;
         map.addBomb(new Bomb(map, bombX, bombY, 2));
+        lastBombTime = System.currentTimeMillis();
     }
 
 
@@ -91,7 +97,16 @@ public class Player implements Drawable {
         return map.isEmpty(newX, newY);
     }
 
+    public void setX(int x) {
+        this.x = x *80;
+    }
 
+    public void setY(int y) {
+        this.y = y *80;
+    }
 
-
+    public void setCoordinates(int x, int y) {
+        this.x = x * 80;
+        this.y = y * 80;
+    }
 }

@@ -140,12 +140,20 @@ class GameMap implements Drawable {
     }
 
     public void reset() {
+        bombs.clear();
         generateMap();
     }
 
     public void addBomb(Bomb bomb) {
         bombs.add(bomb);
     }
-
-
+    //  metoda která kontroluje zda je hráč v explozi, ale jen když zrovna exploze probíhá
+    public boolean isPlayerInExplosion(Player player) {
+        for (Bomb bomb : bombs) {
+            if ( !bomb.hasExplosionEnded()&& bomb.isInRange(player.getX(), player.getY())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -80,7 +80,7 @@ public class DrawingThread extends AnimationTimer {
             for (Drawable drawable : drawables) {
                 drawable.draw(gc);
             }
-
+            update();
             handlePlayerMovement(player1, upPressed1, downPressed1, leftPressed1, rightPressed1, spacePressed);
             handlePlayerMovement(player2, upPressed2, downPressed2, leftPressed2, rightPressed2, mPressed);
 
@@ -116,8 +116,19 @@ public class DrawingThread extends AnimationTimer {
 
     private void resetGame() {
         map.reset();
-        this.player1 = new Player(this.map, 1, 1, "/Player1/");
-        this.player2 = new Player(this.map, 13, 9, "/Player2/");
+        player1.setCoordinates(1,1);
+        player2.setCoordinates(13,9);
+    }
 
+    private void update() {
+        // Kontrola, zda je hráč v explozi
+        if (map.isPlayerInExplosion(player1)) {
+            System.out.println("Player 1 is in explosion!");
+            resetGame();
+        }
+        if (map.isPlayerInExplosion(player2)) {
+            System.out.println("Player 2 is in explosion!");
+            resetGame();
+        }
     }
 }
