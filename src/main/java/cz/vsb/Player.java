@@ -59,9 +59,6 @@ public class Player implements Drawable {
     }
 
 
-
-
-
     @Override
     public void draw(GraphicsContext gc) {
         gc.drawImage(activeImage, x, y, size, size);
@@ -89,20 +86,9 @@ public class Player implements Drawable {
         return speed;
     }
 
+    //  bude pouzito kdyz hrac sebere boost
     public void setSpeed(int speed) {
         this.speed = speed;
-    }
-
-    private boolean canMove(int newX, int newY) {
-        return map.isEmpty(newX, newY);
-    }
-
-    public void setX(int x) {
-        this.x = x *80;
-    }
-
-    public void setY(int y) {
-        this.y = y *80;
     }
 
     public void setCoordinates(int x, int y) {

@@ -123,11 +123,11 @@ public class DrawingThread extends AnimationTimer {
     private void update() {
         // Kontrola, zda je hráč v explozi
         if (map.isPlayerInExplosion(player1)) {
-            System.out.println("Player 1 is in explosion!");
+            System.out.println("Player 1 is in explosion! - Player 2 wins!");
             resetGame();
         }
         if (map.isPlayerInExplosion(player2)) {
-            System.out.println("Player 2 is in explosion!");
+            System.out.println("Player 2 is in explosion! - Player 1 wins!");
             resetGame();
         }
     }
