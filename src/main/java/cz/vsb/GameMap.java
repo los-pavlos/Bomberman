@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 class GameMap implements Drawable {
     private Block[][] blocks;   // 2D pole bloků
@@ -44,6 +45,39 @@ class GameMap implements Drawable {
                     blocks[row][col] = new DestructibleBlock(col, row); // Zničitelné bloky
                 } else {
                     blocks[row][col] = new IndestructibleBlock(col, row); // Nezničitelné bloky
+                }
+            }
+        }
+    }
+
+    private void generateMapRandom() {
+        // Startivni prostor pro hráče
+        int[][] playerSpawnPositions = {
+                {1, 1}, {1, 2}, {2, 1},  // Bloky pro hráče 1
+                {rows - 2, cols - 2}, {rows - 3, cols - 2}, {rows - 2, cols - 3}  // Bloky pro hráče 2
+        };
+        Random rand = new Random();
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                // Okrajové bloky - neznicitelne
+                if (row == 0 || row == rows - 1 || col == 0 || col == cols - 1) {
+                    blocks[row][col] = new IndestructibleBlock(col, row);
+                }
+                // Druhá vrstva za okrajem - zničitelné kromě spawn míst
+                else if (row == 1 || row == rows - 2 || col == 1 || col == cols - 2) {
+                    if (isPlayerSpawn(row, col, playerSpawnPositions)) {
+                        blocks[row][col] = new EmptyBlock(col, row); // Prázdné místo pro spawn
+                    } else {
+                        blocks[row][col] = new DestructibleBlock(col, row); // Zničitelné bloky
+                    }
+                }
+                // Zbytek mapy...
+                else {
+                    if (rand.nextInt(100) < 60) {
+                        blocks[row][col] = new DestructibleBlock(col, row); // Zničitelné bloky
+                    } else {
+                        blocks[row][col] = new IndestructibleBlock(col, row); // Nezničitelné bloky
+                    }
                 }
             }
         }
@@ -141,7 +175,7 @@ class GameMap implements Drawable {
 
     public void reset() {
         bombs.clear();
-        generateMap();
+        generateMapRandom();
     }
 
     public void addBomb(Bomb bomb) {
