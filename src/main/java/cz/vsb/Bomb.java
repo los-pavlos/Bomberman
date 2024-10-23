@@ -94,11 +94,13 @@ public class Bomb implements Drawable {
         return (System.currentTimeMillis() - explosionStartTime >= explosionDuration);
     }
 
+
+    //  Pokud je stred hrace v explozi
     public boolean isInRange(int playerX, int playerY) {
         int bombX = x;
         int bombY = y;
-        playerX = playerX / 80;
-        playerY = playerY / 80;
+        playerX = (playerX+40) / 80;
+        playerY = (playerY+40) / 80;
         // Check the bomb's position
         if (playerX == bombX && playerY == bombY) {
             return true;

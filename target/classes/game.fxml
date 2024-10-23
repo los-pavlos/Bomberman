@@ -9,19 +9,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1200.0" style="-fx-background-color: #434343;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.vsb.GameController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="880.0" prefWidth="1200.0" style="-fx-background-color: #434343;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.vsb.GameController">
    <center>
-      <Canvas fx:id="canvas" height="880.0" width="1200.0" BorderPane.alignment="TOP_CENTER" />
+      <Canvas fx:id="canvas" height="880.0" width="1200.0" />
    </center>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="46.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="600.0" BorderPane.alignment="BOTTOM_CENTER">
          <children>
-            <CheckBox fx:id="randomMapCheckBox" contentDisplay="CENTER" mnemonicParsing="false" onAction="#randomMapActivate" prefHeight="29.0" prefWidth="195.0" text="RANDOM MAP" textFill="WHITE">
+            <CheckBox fx:id="randomMapCheckBox" contentDisplay="CENTER" mnemonicParsing="false" onAction="#randomMapActivate" prefHeight="40.0" prefWidth="300.0" text="RANDOM MAP" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="17.0" />
+                  <Font name="System Bold" size="27.0" />
                </font>
             </CheckBox>
-            <Button fx:id="btnReset" alignment="CENTER" mnemonicParsing="false" onAction="#reset" prefHeight="36.0" prefWidth="326.0" style="-fx-background-color: #0d6c6c;" text="RESET">
+            <Button fx:id="btnReset" alignment="CENTER" mnemonicParsing="false" onAction="#reset" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #0d6c6c;" text="RESET">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -33,7 +33,7 @@
       </HBox>
    </bottom>
    <top>
-      <Label fx:id="topLabel" alignment="CENTER" contentDisplay="TOP" prefHeight="66.0" prefWidth="1200.0" text="Label" textFill="WHITE" BorderPane.alignment="CENTER">
+      <Label fx:id="topLabel" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="1200.0" text="Label" textFill="WHITE" BorderPane.alignment="TOP_CENTER">
          <font>
             <Font name="Ubuntu Bold" size="28.0" />
          </font></Label>
