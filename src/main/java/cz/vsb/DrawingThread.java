@@ -13,7 +13,7 @@ public class DrawingThread extends AnimationTimer {
     private final Player player2;
     private final GameController controller;
 
-
+    private boolean randomMap = false;
 
     private Drawable[] drawables;
     private long lastUpdate = 0;
@@ -77,7 +77,7 @@ public class DrawingThread extends AnimationTimer {
     }
 
     public void resetGame() {
-        map.reset();
+        map.reset(randomMap);
         player1.setCoordinates(1, 1);
         player2.setCoordinates(13, 9);
     }
@@ -94,7 +94,9 @@ public class DrawingThread extends AnimationTimer {
         }
     }
 
-
+    public void setRandomMap(boolean randomMap) {
+        this.randomMap = randomMap;
+    }
 
 
 }

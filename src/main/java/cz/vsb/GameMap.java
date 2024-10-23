@@ -173,9 +173,12 @@ class GameMap implements Drawable {
         return blocks[row][col];
     }
 
-    public void reset() {
+    public void reset(boolean random) {
         bombs.clear();
-        generateMapRandom();
+        if(random)
+            generateMapRandom();
+        else
+            generateMap();
     }
 
     public void addBomb(Bomb bomb) {

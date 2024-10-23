@@ -5,15 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 
 public class GameController {
 
     private DrawingThread timer;
-
-
-
 
     private boolean upPressed1 = false;
     private boolean downPressed1 = false;
@@ -28,6 +26,8 @@ public class GameController {
     private boolean spacePressed = false;
     private boolean mPressed = false;
 
+    @FXML
+    private CheckBox randomMapCheckBox;
 
 
 
@@ -41,8 +41,12 @@ public class GameController {
     private Label topLabel;
 
     @FXML
-    void pause(ActionEvent event) {
-
+    void randomMapActivate(ActionEvent event) {
+        if (randomMapCheckBox.isSelected()) {
+            timer.setRandomMap(true);
+        } else {
+            timer.setRandomMap(false);
+        }
     }
 
 
