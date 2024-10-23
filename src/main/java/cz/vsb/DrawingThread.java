@@ -13,7 +13,7 @@ public class DrawingThread extends AnimationTimer {
     private final Player player2;
     private final GameController controller;
 
-    private boolean randomMap = false;
+    private boolean randomMap;
 
     private Drawable[] drawables;
     private long lastUpdate = 0;
@@ -26,7 +26,7 @@ public class DrawingThread extends AnimationTimer {
         this.player2 = new Player(this.map, 13, 9, "/Player2/");
         this.drawables = new Drawable[]{map, player1, player2};
         this.controller = controller;
-
+        this.randomMap = false;
     }
 
 
