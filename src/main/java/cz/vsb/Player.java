@@ -24,7 +24,7 @@ public class Player implements Drawable {
     public Player(GameMap map, int startX, int startY, String imagePath) {
         this.x = startX * 80;
         this.y = startY * 80;
-        this.speed = 5; // Výchozí rychlost hráče, bude 2 po sebrání boostu
+        this.speed = 4; // Výchozí rychlost hráče, bude 2 po sebrání boostu
         this.map = map;
 
         this.standingImage = new Image(getClass().getResourceAsStream(imagePath + "standing.gif"));
