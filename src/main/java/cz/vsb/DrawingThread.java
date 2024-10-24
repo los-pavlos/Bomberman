@@ -84,11 +84,15 @@ public class DrawingThread extends AnimationTimer {
 
     public void update() {
         // Check if player is in explosion
-        if (map.isPlayerInExplosion(player1)) {
+        if(map.isPlayerInExplosion(player1)&&map.isPlayerInExplosion(player2)){
+            controller.getTopLabel().setText("Draw!");
+            stop();
+        }
+        else if (map.isPlayerInExplosion(player1)) {
             controller.getTopLabel().setText("Player 2 wins!");
             stop();
         }
-        if (map.isPlayerInExplosion(player2)) {
+        else if (map.isPlayerInExplosion(player2)) {
             controller.getTopLabel().setText("Player 1 wins!");
             stop();
         }
