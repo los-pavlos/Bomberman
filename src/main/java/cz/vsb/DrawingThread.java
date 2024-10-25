@@ -43,7 +43,6 @@ public class DrawingThread extends AnimationTimer {
             handlePlayerMovement(player1, controller.isUpPressed1(), controller.isDownPressed1(), controller.isLeftPressed1(), controller.isRightPressed1(), controller.isSpacePressed());
             handlePlayerMovement(player2, controller.isUpPressed2(), controller.isDownPressed2(), controller.isLeftPressed2(), controller.isRightPressed2(), controller.ismPressed());
 
-
             lastUpdate = now;
         }
     }
