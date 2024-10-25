@@ -21,7 +21,7 @@
                   <Font name="System Bold" size="27.0" />
                </font>
             </CheckBox>
-            <Button fx:id="btnReset" alignment="CENTER" mnemonicParsing="false" onAction="#reset" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #0d6c6c;" text="RESET">
+            <Button fx:id="btnReset" alignment="CENTER" mnemonicParsing="false" onAction="#reset" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #0d6c6c;" text="RESTART GAME">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
