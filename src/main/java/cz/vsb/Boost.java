@@ -32,7 +32,6 @@ public abstract class Boost  implements Drawable{
         do{
             this.x =  rand.nextInt(1,14);
             this.y = rand.nextInt(1,10);
-            System.out.println("x: " + x + " y: " + y);
         }while(!(map.getBlock(x, y) instanceof EmptyBlock));
 
     }
