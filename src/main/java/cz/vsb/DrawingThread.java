@@ -12,12 +12,13 @@ public class DrawingThread extends AnimationTimer {
     private final Player player1;
     private final Player player2;
     private final GameController controller;
-
+    private Boost bombRangeBoost;
+    private Boost speedBoost;
     private boolean randomMap;
 
     private Drawable[] drawables;
     private long lastUpdate = 0;
-
+    private long startTime;
     public DrawingThread(Canvas canvas, GameController controller) {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
@@ -26,13 +27,14 @@ public class DrawingThread extends AnimationTimer {
         this.player2 = new Player(this.map, 13, 9, "/Player2/");
 
         // Instantiate boosts
-        Boost speedBoost = new SpeedBoost(600,  map);
-        Boost bombRangeBoost = new BombRangeBoost(600, map);
+        this.speedBoost = new SpeedBoost(600,  map);
+        this.bombRangeBoost = new BombRangeBoost(600, map);
 
 
         this.drawables = new Drawable[]{map, player1, player2, speedBoost, bombRangeBoost};
         this.controller = controller;
         this.randomMap = false;
+        this.startTime = System.currentTimeMillis();
     }
 
 
@@ -82,6 +84,12 @@ public class DrawingThread extends AnimationTimer {
         map.reset(randomMap);
         player1.setCoordinates(1, 1);
         player2.setCoordinates(13, 9);
+        player1.setBombRange(2);
+        player2.setBombRange(2);
+        player1.setSpeed(4);
+        player2.setSpeed(4);
+        bombRangeBoost.renew();
+        speedBoost.renew();
     }
 
     public void update() {
@@ -101,16 +109,19 @@ public class DrawingThread extends AnimationTimer {
         // Check and apply boosts for each player
         for (Drawable drawable : drawables) {
             if (drawable instanceof Boost) {
-                player1.checkAndApplyBoost((Boost) drawable);
-                player2.checkAndApplyBoost((Boost) drawable);
+                Boost boost = (Boost) drawable;
 
-                if(((Boost) drawable).getDuration() <= 0){
-                    ((Boost) drawable).removeEffect();
-                    ((Boost) drawable).renew();
+                player1.checkAndApplyBoost(boost);
+                player2.checkAndApplyBoost(boost);
+
+                if(boost.getDuration() <= 0){
+                    boost.removeEffect();
+                    boost.renew();
                 }
             }
 
         }
+        checkBoostCoordinates();
 
     }
 
@@ -118,5 +129,9 @@ public class DrawingThread extends AnimationTimer {
         this.randomMap = randomMap;
     }
 
-
+    private void checkBoostCoordinates(){
+        if (speedBoost.getX() == bombRangeBoost.getX() && speedBoost.getY() == bombRangeBoost.getY()) {
+            speedBoost.renew();
+        }
+    }
 }

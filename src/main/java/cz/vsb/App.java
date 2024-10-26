@@ -25,7 +25,7 @@ public class App extends Application {
 
 			primaryStage.setScene(scene);
 			primaryStage.resizableProperty().set(false);
-			primaryStage.setTitle("Java 1 - 1th laboratory");
+			primaryStage.setTitle("Bomberman Game");
 			primaryStage.show();
 
 			// Call setupControls after the stage is shown

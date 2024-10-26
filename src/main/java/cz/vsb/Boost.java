@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import java.util.Random;
 public abstract class Boost  implements Drawable{
     protected int fullDuration;
-    protected int duration; // Duration of the boost effect in seconds
+    protected int duration;
     private Image image;
     private int x;
     private int y;
@@ -30,8 +30,9 @@ public abstract class Boost  implements Drawable{
 
         this.map = map;
         do{
-            this.x =  rand.nextInt(1,13);
-            this.y = rand.nextInt(1,9);
+            this.x =  rand.nextInt(1,14);
+            this.y = rand.nextInt(1,10);
+            System.out.println("x: " + x + " y: " + y);
         }while(!(map.getBlock(x, y) instanceof EmptyBlock));
 
     }
@@ -74,8 +75,8 @@ public abstract class Boost  implements Drawable{
     public void renew(){
 
         do{
-            this.x =  rand.nextInt(0,1200);
-            this.y = rand.nextInt(0,880);
+            this.x =  rand.nextInt(1,14);
+            this.y = rand.nextInt(1,10);
         }while(!(map.getBlock(x, y) instanceof EmptyBlock));
         setUsed(false);
         duration = fullDuration;
