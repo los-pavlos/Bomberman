@@ -24,7 +24,13 @@ public class DrawingThread extends AnimationTimer {
         this.map = new GameMap();
         this.player1 = new Player(this.map, 1, 1, "/Player1/");
         this.player2 = new Player(this.map, 13, 9, "/Player2/");
-        this.drawables = new Drawable[]{map, player1, player2};
+
+        // Instantiate boosts
+        Boost speedBoost = new SpeedBoost(10,  map);
+        Boost bombRangeBoost = new BombRangeBoost(10, map);
+
+
+        this.drawables = new Drawable[]{map, player1, player2, speedBoost, bombRangeBoost};
         this.controller = controller;
         this.randomMap = false;
     }
@@ -91,6 +97,15 @@ public class DrawingThread extends AnimationTimer {
         else if (map.isPlayerInExplosion(player2)) {
             controller.getTopLabel().setText("Player 1 wins!");
             stop();
+        }
+        // Check and apply boosts for each player
+        for (Drawable drawable : drawables) {
+            if (drawable instanceof Boost) {
+
+                player1.checkAndApplyBoost((Boost) drawable);
+                player2.checkAndApplyBoost((Boost) drawable);
+            }
+
         }
     }
 

@@ -54,7 +54,7 @@ public class GameController {
     @FXML
     void reset(ActionEvent event) {
         timer.resetGame();
-        topLabel.setText("Game is running");
+        topLabel.setText("Game is running...");
         timer.start();
     }
 
@@ -63,7 +63,7 @@ public class GameController {
         void initialize() {
             timer = new DrawingThread(canvas, this);
             timer.start();
-            topLabel.setText("Game is running");
+            topLabel.setText("Game is running...");
             // Zablokování mezerníku pro tlačítko reset
             btnReset.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
                 if (event.getCode() == javafx.scene.input.KeyCode.SPACE) {

@@ -20,6 +20,7 @@ public class Player implements Drawable {
     private GameMap map;
     private long bombDelay = 2500;
     private long lastBombTime = 0;
+    private int bombRange = 2;
 
     public Player(GameMap map, int startX, int startY, String imagePath) {
         this.x = startX * 80;
@@ -55,7 +56,7 @@ public class Player implements Drawable {
         }
         int bombX = (x + size / 2) / size;
         int bombY = (y + size / 2) / size;
-        map.addBomb(new Bomb(map, bombX, bombY, 2));
+        map.addBomb(new Bomb(map, bombX, bombY, bombRange));
         lastBombTime = System.currentTimeMillis();
     }
 
@@ -83,17 +84,35 @@ public class Player implements Drawable {
         }
     }
 
-    public int getSpeed() {
-        return speed;
-    }
 
-    //  bude pouzito kdyz hrac sebere boost
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
 
     public void setCoordinates(int x, int y) {
         this.x = x * 80;
         this.y = y * 80;
+    }
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getBombRange() {
+        return bombRange;
+    }
+
+    public void setBombRange(int bombRange) {
+        this.bombRange = bombRange;
+    }
+
+    public void checkAndApplyBoost(Boost boost) {
+        int playerBlockX = (x + size / 2) / size;
+        int playerBlockY = (y + size / 2) / size;
+
+        if (playerBlockX == boost.getX() && playerBlockY == boost.getY()) {
+            boost.applyEffect(this);
+
+        }
     }
 }

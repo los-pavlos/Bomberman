@@ -9,33 +9,33 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="880.0" prefWidth="1200.0" style="-fx-background-color: #434343;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.vsb.GameController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="880.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.vsb.GameController">
    <center>
       <Canvas fx:id="canvas" height="880.0" width="1200.0" />
    </center>
    <bottom>
       <HBox alignment="CENTER" prefHeight="80.0" prefWidth="600.0" BorderPane.alignment="BOTTOM_CENTER">
          <children>
-            <CheckBox fx:id="randomMapCheckBox" contentDisplay="CENTER" mnemonicParsing="false" onAction="#randomMapActivate" prefHeight="40.0" prefWidth="300.0" text="RANDOM MAP" textFill="WHITE">
+            <CheckBox fx:id="randomMapCheckBox" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#randomMapActivate" prefHeight="40.0" prefWidth="300.0" text="RANDOM MAP" textFill="#bdbdbd">
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="VT323 Regular" size="50.0" />
                </font>
             </CheckBox>
-            <Button fx:id="btnReset" alignment="CENTER" mnemonicParsing="false" onAction="#reset" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #0d6c6c;" text="RESTART GAME">
+            <Button fx:id="btnReset" alignment="CENTER" mnemonicParsing="false" onAction="#reset" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #bdbdbd;" text="RESTART GAME">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
                <font>
-                  <Font name="System Bold" size="27.0" />
+                  <Font name="VT323 Regular" size="38.0" />
                </font>
             </Button>
          </children>
       </HBox>
    </bottom>
    <top>
-      <Label fx:id="topLabel" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="1200.0" text="Label" textFill="WHITE" BorderPane.alignment="TOP_CENTER">
+      <Label fx:id="topLabel" alignment="CENTER" contentDisplay="TOP" prefHeight="80.0" prefWidth="1200.0" text="Label" textFill="#bdbdbd" BorderPane.alignment="TOP_CENTER">
          <font>
-            <Font name="Ubuntu Bold" size="28.0" />
+            <Font name="VT323 Regular" size="72.0" />
          </font></Label>
    </top>
 </BorderPane>
