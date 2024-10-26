@@ -26,8 +26,8 @@ public class DrawingThread extends AnimationTimer {
         this.player2 = new Player(this.map, 13, 9, "/Player2/");
 
         // Instantiate boosts
-        Boost speedBoost = new SpeedBoost(10,  map);
-        Boost bombRangeBoost = new BombRangeBoost(10, map);
+        Boost speedBoost = new SpeedBoost(600,  map);
+        Boost bombRangeBoost = new BombRangeBoost(600, map);
 
 
         this.drawables = new Drawable[]{map, player1, player2, speedBoost, bombRangeBoost};
@@ -101,12 +101,17 @@ public class DrawingThread extends AnimationTimer {
         // Check and apply boosts for each player
         for (Drawable drawable : drawables) {
             if (drawable instanceof Boost) {
-
                 player1.checkAndApplyBoost((Boost) drawable);
                 player2.checkAndApplyBoost((Boost) drawable);
+
+                if(((Boost) drawable).getDuration() <= 0){
+                    ((Boost) drawable).removeEffect();
+                    ((Boost) drawable).renew();
+                }
             }
 
         }
+
     }
 
     public void setRandomMap(boolean randomMap) {

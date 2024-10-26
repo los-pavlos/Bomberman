@@ -13,10 +13,13 @@ public class BombRangeBoost extends Boost {
     public void applyEffect(Player player) {
        // player.setBombRange(player.getBombRange() + rangeIncrease);
         player.setBombRange(4);
+        isUsed = true;
+        this.player = player;
     }
 
     @Override
-    public void removeEffect(Player player) {
-        player.setBombRange(player.getBombRange() - rangeIncrease);
+    public void removeEffect() {
+        player.setBombRange(2);
+
     }
 }

@@ -111,8 +111,18 @@ public class Player implements Drawable {
         int playerBlockY = (y + size / 2) / size;
 
         if (playerBlockX == boost.getX() && playerBlockY == boost.getY()) {
-            boost.applyEffect(this);
-
+            if(!boost.isUsed()&&boost.getDuration()>=0)
+                boost.applyEffect(this);
         }
+
+
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }

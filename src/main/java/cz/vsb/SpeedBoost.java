@@ -10,12 +10,21 @@ public class SpeedBoost extends Boost {
 
     @Override
     public void applyEffect(Player player) {
-        //  player.setSpeed(player.getSpeed() * speedMultiplier);
+        player.setX((player.getX() / 80) * 80);
+        player.setY((player.getY() / 80) * 80);
+
         player.setSpeed(8);
+
+        isUsed = true;
+        this.player = player;
     }
 
     @Override
-    public void removeEffect(Player player) {
-        player.setSpeed(player.getSpeed() / speedMultiplier);
+    public void removeEffect() {
+
+        player.setSpeed(4);
+
     }
+
+
 }
