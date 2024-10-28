@@ -13,35 +13,33 @@ public class App extends Application {
 		launch(args);
 	}
 
-	private GameController gameController;
+	private Stage primaryStage;
 
 	@Override
 	public void start(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+		switchToMenuScene();
+		primaryStage.setTitle("Bomberman Game");
+		primaryStage.resizableProperty().set(false);
+		primaryStage.show();
+		primaryStage.setOnCloseRequest(this::exitProgram);
+	}
+
+	public void switchToMenuScene() {
 		try {
-			FXMLLoader gameLoader = new FXMLLoader(getClass().getResource("/game.fxml"));
-			Parent root = gameLoader.load();
-			gameController = gameLoader.getController();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
+			Parent root = loader.load();
 			Scene scene = new Scene(root);
-
 			primaryStage.setScene(scene);
-			primaryStage.resizableProperty().set(false);
-			primaryStage.setTitle("Bomberman Game");
-			primaryStage.show();
-
-			// Call setupControls after the stage is shown
-			gameController.setupControls();
-
-			// Exit program when main window is closed
-			primaryStage.setOnCloseRequest(this::exitProgram);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+
+
 	@Override
 	public void stop() throws Exception {
-		gameController.stop();
 		super.stop();
 	}
 

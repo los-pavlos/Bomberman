@@ -2,12 +2,17 @@ package cz.vsb;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class GameController {
 
@@ -26,8 +31,6 @@ public class GameController {
     private boolean spacePressed = false;
     private boolean mPressed = false;
 
-    @FXML
-    private CheckBox randomMapCheckBox;
 
 
 
@@ -35,18 +38,29 @@ public class GameController {
     private Button btnReset;
 
     @FXML
+    private Button btnMenu;
+
+    @FXML
     private Canvas canvas;
 
     @FXML
     private Label topLabel;
 
+
+
     @FXML
-    void randomMapActivate(ActionEvent event) {
-        if (randomMapCheckBox.isSelected()) {
-            timer.setRandomMap(true);
-        } else {
-            timer.setRandomMap(false);
+    void menu(ActionEvent event) {
+        timer.stop();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) btnMenu.getScene().getWindow();
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 
 
@@ -70,11 +84,6 @@ public class GameController {
                     event.consume();  // Zastaví výchozí akci tlačítka na mezerník
                 }
             });
-            randomMapCheckBox.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-                if (event.getCode() == javafx.scene.input.KeyCode.SPACE) {
-                    event.consume();  // Zastaví výchozí akci tlačítka na mezerník
-                }
-            });;
 
             setupControls();
         }
@@ -87,6 +96,7 @@ public class GameController {
         topLabel.setText(winner + " wins!");
         timer.stop();
     }
+
     public void setupControls() {
         Scene scene = canvas.getScene();
         if (scene != null) {

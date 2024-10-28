@@ -14,7 +14,7 @@ public class DrawingThread extends AnimationTimer {
     private final GameController controller;
     private Boost bombRangeBoost;
     private Boost speedBoost;
-    private boolean randomMap;
+    public static boolean randomMap = false;
 
     private Drawable[] drawables;
     private long lastUpdate = 0;
@@ -33,8 +33,11 @@ public class DrawingThread extends AnimationTimer {
 
         this.drawables = new Drawable[]{map, player1, player2, speedBoost, bombRangeBoost};
         this.controller = controller;
-        this.randomMap = false;
+
         this.startTime = System.currentTimeMillis();
+
+        //  reset aby se vygenerovala nova mapa (kdyz ma byt nahodna)
+        resetGame();
     }
 
 
@@ -125,13 +128,15 @@ public class DrawingThread extends AnimationTimer {
 
     }
 
-    public void setRandomMap(boolean randomMap) {
-        this.randomMap = randomMap;
-    }
+
 
     private void checkBoostCoordinates(){
         if (speedBoost.getX() == bombRangeBoost.getX() && speedBoost.getY() == bombRangeBoost.getY()) {
             speedBoost.renew();
         }
     }
+
+
+
+
 }
