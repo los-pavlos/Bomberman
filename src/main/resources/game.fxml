@@ -13,9 +13,9 @@
       <Canvas fx:id="canvas" height="880.0" width="1200.0" />
    </center>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="600.0" BorderPane.alignment="BOTTOM_CENTER">
+      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="600.0" spacing="100.0" BorderPane.alignment="BOTTOM_CENTER">
          <children>
-            <Button fx:id="btnReset" alignment="CENTER" mnemonicParsing="false" onAction="#reset" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #bdbdbd;" text="RESTART GAME">
+            <Button fx:id="btnReset" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#reset" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #bdbdbd;" text="RESTART GAME">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

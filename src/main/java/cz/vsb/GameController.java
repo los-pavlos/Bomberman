@@ -84,6 +84,11 @@ public class GameController {
                     event.consume();  // Zastaví výchozí akci tlačítka na mezerník
                 }
             });
+            btnMenu.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == javafx.scene.input.KeyCode.SPACE) {
+                    event.consume();  // Zastaví výchozí akci tlačítka na mezerník
+                }
+            });
 
             setupControls();
         }
