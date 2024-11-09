@@ -97,10 +97,7 @@ public class GameController {
                 timer.stop();
             }
 
-    public void win(String winner) {
-        topLabel.setText(winner + " wins!");
-        timer.stop();
-    }
+
 
     public void setupControls() {
         Scene scene = canvas.getScene();
@@ -152,4 +149,10 @@ public class GameController {
     public Label getTopLabel() {
         return topLabel;
     }
-}
+
+    public void setTopLabel(String text) {
+        topLabel.setText(text);
+    }
+
+
+    }

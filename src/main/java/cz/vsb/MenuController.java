@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +23,13 @@ public class MenuController {
     private void initialize() {
         btnPlay.setOnAction(event -> switchToGameScene());
     }
+
+    @FXML
+    private TextField tfPlayer1;
+
+    @FXML
+    private TextField tfPlayer2;
+
 
     private void setCheckbxRandMap() {
         if (checkbxRandMap.isSelected()) {

@@ -23,8 +23,8 @@ public class DrawingThread extends AnimationTimer {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         this.map = new GameMap();
-        this.player1 = new Player(this.map, 1, 1, "/Player1/");
-        this.player2 = new Player(this.map, 13, 9, "/Player2/");
+        this.player1 = new Player(this.map, 1, 1, "/Player1/", "Player1", controller);
+        this.player2 = new Player(this.map, 13, 9, "/Player2/", "Player2", controller);
 
         // Instantiate boosts
         this.speedBoost = new SpeedBoost(600,  map);
@@ -96,18 +96,14 @@ public class DrawingThread extends AnimationTimer {
     }
 
     public void update() {
-        // Check if player is in explosion
-        if(map.isPlayerInExplosion(player1)&&map.isPlayerInExplosion(player2)){
-            controller.getTopLabel().setText("Draw!");
-            stop();
-        }
-        else if (map.isPlayerInExplosion(player1)) {
-            controller.getTopLabel().setText("Player 2 wins!");
+        // Check if the game is over
+         if (map.isPlayerInExplosion(player1)) {
+            player1.hit();
             stop();
         }
         else if (map.isPlayerInExplosion(player2)) {
-            controller.getTopLabel().setText("Player 1 wins!");
-            stop();
+             player2.hit();
+             stop();
         }
         // Check and apply boosts for each player
         for (Drawable drawable : drawables) {

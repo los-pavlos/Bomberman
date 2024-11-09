@@ -3,6 +3,7 @@ package cz.vsb;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,21 +22,25 @@ public class Player implements Drawable {
     private long bombDelay = 2500;
     private long lastBombTime = 0;
     private int bombRange = 2;
+    private String name;
+    private List<DeadListener> deadListeners = new ArrayList<>();
+    private GameController controller;
 
-    public Player(GameMap map, int startX, int startY, String imagePath) {
+    public Player(GameMap map, int startX, int startY, String imagePath, String name, GameController controller) {
         this.x = startX * 80;
         this.y = startY * 80;
         this.speed = 4; // Výchozí rychlost hráče, bude 2 po sebrání boostu
         this.map = map;
-
+        this.name = name;
+        this.controller = controller;
         this.standingImage = new Image(getClass().getResourceAsStream(imagePath + "standing.gif"));
         this.rightImage = new Image(getClass().getResourceAsStream(imagePath + "right.gif"));
         this.leftImage = new Image(getClass().getResourceAsStream(imagePath + "left.gif"));
         this.upImage = new Image(getClass().getResourceAsStream(imagePath + "up.gif"));
         this.downImage = new Image(getClass().getResourceAsStream(imagePath + "down.gif"));
         this.activeImage = standingImage;
+        add(new Dead());
     }
-
     public void move(int deltaX, int deltaY) {
         int newX = x + deltaX * speed;
         int newY = y + deltaY * speed;
@@ -124,5 +129,37 @@ public class Player implements Drawable {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean add(DeadListener e){
+        return deadListeners.add(e);
+    }
+
+    public void remove(DeadListener e){
+        deadListeners.remove(e);
+    }
+
+    public void firePlayerDead(){
+        for(DeadListener e : deadListeners){
+            e.playerDead(this);
+        }
+    }
+
+
+    public void hit() {
+        firePlayerDead();
+    }
+
+    private class Dead implements DeadListener {
+        @Override
+        public void playerDead(Player player) {
+            controller.setTopLabel(player.getName() + " is dead!!!!!!!!");
+
+        }
     }
 }

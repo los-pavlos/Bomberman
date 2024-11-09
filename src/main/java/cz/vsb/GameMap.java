@@ -167,6 +167,7 @@ class GameMap implements Drawable {
     public boolean isPlayerInExplosion(Player player) {
         for (Bomb bomb : bombs) {
             if (!bomb.hasExplosionEnded() && bomb.isInRange(player.getX(), player.getY())) {
+                player.hit();
                 return true;
             }
         }
