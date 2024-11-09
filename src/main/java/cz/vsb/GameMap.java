@@ -7,15 +7,18 @@ import java.util.List;
 import java.util.Random;
 
 class GameMap implements Drawable {
-    private Block[][] blocks;   // 2D pole bloků
+    private List<List<Block>> blocks;   // 2D kolekce bloků
     private final int rows = 11;
     private final int cols = 15;
 
-    //  list of bombs
+    // list of bombs
     private List<Bomb> bombs = new ArrayList<>();
 
     public GameMap() {
-        blocks = new Block[rows][cols];
+        blocks = new ArrayList<>();
+        for (int i = 0; i < rows; i++) {
+            blocks.add(new ArrayList<>());
+        }
         generateMap(false);
     }
 
@@ -30,35 +33,32 @@ class GameMap implements Drawable {
             for (int col = 0; col < cols; col++) {
                 // Okrajové bloky - neznicitelne
                 if (row == 0 || row == rows - 1 || col == 0 || col == cols - 1) {
-                    blocks[row][col] = new IndestructibleBlock(col, row);
+                    blocks.get(row).add(new IndestructibleBlock(col, row));
                 }
                 // Druhá vrstva za okrajem - zničitelné kromě spawn míst
                 else if (row == 1 || row == rows - 2 || col == 1 || col == cols - 2) {
                     if (isPlayerSpawn(row, col, playerSpawnPositions)) {
-                        blocks[row][col] = new EmptyBlock(col, row); // Prázdné místo pro spawn
+                        blocks.get(row).add(new EmptyBlock(col, row)); // Prázdné místo pro spawn
                     } else {
-                        blocks[row][col] = new DestructibleBlock(col, row); // Zničitelné bloky
+                        blocks.get(row).add(new DestructibleBlock(col, row)); // Zničitelné bloky
                     }
                 }
                 // Zbytek mapy...
                 else if(isMapRandom){
-
                     if (new Random().nextInt(100) < 60) {
-                        blocks[row][col] = new DestructibleBlock(col, row); // Zničitelné bloky
+                        blocks.get(row).add(new DestructibleBlock(col, row)); // Zničitelné bloky
                     } else {
-                        blocks[row][col] = new IndestructibleBlock(col, row); // Nezničitelné bloky
+                        blocks.get(row).add(new IndestructibleBlock(col, row)); // Nezničitelné bloky
                     }
-
                 }
                 else if (row % 2 != 0 || col % 2 != 0) {
-                    blocks[row][col] = new DestructibleBlock(col, row); // Zničitelné bloky
+                    blocks.get(row).add(new DestructibleBlock(col, row)); // Zničitelné bloky
                 } else {
-                    blocks[row][col] = new IndestructibleBlock(col, row); // Nezničitelné bloky
+                    blocks.get(row).add(new IndestructibleBlock(col, row)); // Nezničitelné bloky
                 }
             }
         }
     }
-
 
     private boolean isPlayerSpawn(int row, int col, int[][] spawnPositions) {
         for (int[] pos : spawnPositions) {
@@ -71,12 +71,12 @@ class GameMap implements Drawable {
 
     @Override
     public void draw(GraphicsContext gc) {
-        for (int row = 0; row < blocks.length; row++) {
-            for (int col = 0; col < blocks[row].length; col++) {
-                blocks[row][col].draw(gc);
+        for (int row = 0; row < blocks.size(); row++) {
+            for (int col = 0; col < blocks.get(row).size(); col++) {
+                blocks.get(row).get(col).draw(gc);
             }
         }
-        //  kvuli odstranovani behem iterace
+        // kvuli odstranovani behem iterace
         Iterator<Bomb> iterator = bombs.iterator();
         while (iterator.hasNext()) {
             Bomb bomb = iterator.next();
@@ -121,7 +121,7 @@ class GameMap implements Drawable {
             if (x < 0 || y < 0 || x >= cols || y >= rows) {
                 return false;
             }
-            if (!(blocks[y][x] instanceof EmptyBlock)) {
+            if (!(blocks.get(y).get(x) instanceof EmptyBlock)) {
                 return false;
             }
         }
@@ -130,8 +130,8 @@ class GameMap implements Drawable {
     }
 
     public void destroyBlock(int col, int row) {
-        if (blocks[row][col] instanceof DestructibleBlock) {
-            blocks[row][col] = new EmptyBlock(col,row);
+        if (blocks.get(row).get(col) instanceof DestructibleBlock) {
+            blocks.get(row).set(col, new EmptyBlock(col, row));
         }
     }
 
@@ -147,21 +147,26 @@ class GameMap implements Drawable {
         if (col < 0 || col >= cols || row < 0 || row >= rows) {
             return null; // Return null for out-of-bounds
         }
-        return blocks[row][col];
+        return blocks.get(row).get(col);
     }
 
     public void reset(boolean isMapRandom) {
         bombs.clear();
+        blocks.clear();
+        for (int i = 0; i < rows; i++) {
+            blocks.add(new ArrayList<>());
+        }
         generateMap(isMapRandom);
     }
 
     public void addBomb(Bomb bomb) {
         bombs.add(bomb);
     }
-    //  metoda která kontroluje zda je hráč v explozi, ale jen když zrovna exploze probíhá
+
+    // metoda která kontroluje zda je hráč v explozi, ale jen když zrovna exploze probíhá
     public boolean isPlayerInExplosion(Player player) {
         for (Bomb bomb : bombs) {
-            if ( !bomb.hasExplosionEnded()&& bomb.isInRange(player.getX(), player.getY())) {
+            if (!bomb.hasExplosionEnded() && bomb.isInRange(player.getX(), player.getY())) {
                 return true;
             }
         }
