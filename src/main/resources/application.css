@@ -13,10 +13,6 @@ Label {
 #checkbxRandMap{
     -fx-text-fill: RGB(204, 204, 0);
     -fx-effect: dropshadow(gaussian,  black, 50.0, 0.7, 0.0, 0.0);
-
-
-
-
 }
 
 TextField{
