@@ -6,7 +6,6 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Player implements Drawable {
     private int x;
     private int y;
@@ -29,7 +28,7 @@ public class Player implements Drawable {
     public Player(GameMap map, int startX, int startY, String imagePath, String name, GameController controller) {
         this.x = startX * 80;
         this.y = startY * 80;
-        this.speed = 4; // Výchozí rychlost hráče, bude 2 po sebrání boostu
+        this.speed = 4; // Default player speed, will be 2 after picking up a boost
         this.map = map;
         this.name = name;
         this.controller = controller;
@@ -39,24 +38,23 @@ public class Player implements Drawable {
         this.upImage = new Image(getClass().getResourceAsStream(imagePath + "up.gif"));
         this.downImage = new Image(getClass().getResourceAsStream(imagePath + "down.gif"));
         this.activeImage = standingImage;
-        add(new Dead());
+        add(controller.getDeadListener());
     }
+
     public void move(int deltaX, int deltaY) {
         int newX = x + deltaX * speed;
         int newY = y + deltaY * speed;
 
-        // Kontrola, zda je nová pozice volná
+        // Check if the new position is free
         if (map.isEmpty(newX, newY)) {
             x = newX;
             y = newY;
         }
     }
 
-
-
     public void placeBomb() {
-        //  delay for placing bomb
-        if(System.currentTimeMillis() - lastBombTime < bombDelay) {
+        // Delay for placing bomb
+        if (System.currentTimeMillis() - lastBombTime < bombDelay) {
             return;
         }
         int bombX = (x + size / 2) / size;
@@ -64,7 +62,6 @@ public class Player implements Drawable {
         map.addBomb(new Bomb(map, bombX, bombY, bombRange));
         lastBombTime = System.currentTimeMillis();
     }
-
 
     @Override
     public void draw(GraphicsContext gc) {
@@ -89,12 +86,11 @@ public class Player implements Drawable {
         }
     }
 
-
-
     public void setCoordinates(int x, int y) {
         this.x = x * 80;
         this.y = y * 80;
     }
+
     public int getSpeed() {
         return speed;
     }
@@ -116,11 +112,9 @@ public class Player implements Drawable {
         int playerBlockY = (y + size / 2) / size;
 
         if (playerBlockX == boost.getX() && playerBlockY == boost.getY()) {
-            if(!boost.isUsed()&&boost.getDuration()>=0)
+            if (!boost.isUsed() && boost.getDuration() >= 0)
                 boost.applyEffect(this);
         }
-
-
     }
 
     public void setX(int x) {
@@ -131,35 +125,25 @@ public class Player implements Drawable {
         this.y = y;
     }
 
-
     public String getName() {
         return name;
     }
 
-    public boolean add(DeadListener e){
+    public boolean add(DeadListener e) {
         return deadListeners.add(e);
     }
 
-    public void remove(DeadListener e){
+    public void remove(DeadListener e) {
         deadListeners.remove(e);
     }
 
-    public void firePlayerDead(){
-        for(DeadListener e : deadListeners){
+    public void firePlayerDead() {
+        for (DeadListener e : deadListeners) {
             e.playerDead(this);
         }
     }
 
-
     public void hit() {
         firePlayerDead();
-    }
-
-    private class Dead implements DeadListener {
-        @Override
-        public void playerDead(Player player) {
-            controller.setTopLabel(player.getName() + " is dead!!!!!!!!");
-
-        }
     }
 }

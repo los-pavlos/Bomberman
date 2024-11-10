@@ -155,4 +155,17 @@ public class GameController {
     }
 
 
+
+
+    private class Dead implements DeadListener {
+        @Override
+        public void playerDead(Player player) {
+            setTopLabel(player.getName() + " is dead!!!!!!!!");
+        }
+    }
+
+    public DeadListener getDeadListener() {
+        return new Dead();
+    }
+
     }

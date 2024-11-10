@@ -28,7 +28,8 @@ public class DrawingThread extends AnimationTimer {
         this.map = new GameMap();
         this.player1 = new Player(this.map, 1, 1, "/Player1/", "Player1", controller);
         this.player2 = new Player(this.map, 13, 9, "/Player2/", "Player2", controller);
-
+        player1.add(controller.getDeadListener());
+        player2.add(controller.getDeadListener());
         // Instantiate boosts
         this.speedBoost = new SpeedBoost(600, map);
         this.bombRangeBoost = new BombRangeBoost(600, map);
