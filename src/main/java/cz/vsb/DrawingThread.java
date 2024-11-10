@@ -22,12 +22,12 @@ public class DrawingThread extends AnimationTimer {
     private List<Drawable> drawables;
     private long lastUpdate = 0;
     private long startTime;
-    public DrawingThread(Canvas canvas, GameController controller) {
+    public DrawingThread(Canvas canvas, GameController controller, String player1Name, String player2Name) {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();
         this.map = new GameMap();
-        this.player1 = new Player(this.map, 1, 1, "/Player1/", "Player1", controller);
-        this.player2 = new Player(this.map, 13, 9, "/Player2/", "Player2", controller);
+        this.player1 = new Player(this.map, 1, 1, "/Player1/", player1Name, controller);
+        this.player2 = new Player(this.map, 13, 9, "/Player2/", player2Name, controller);
         player1.add(controller.getDeadListener());
         player2.add(controller.getDeadListener());
         // Instantiate boosts

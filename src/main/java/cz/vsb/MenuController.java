@@ -46,8 +46,9 @@ public class MenuController {
             Parent root = loader.load();
 
             GameController gameController = loader.getController();
-            Scene scene = new Scene(root);
+            gameController.setPlayerNames(tfPlayer1.getText(), tfPlayer2.getText()); // Pass the player names
 
+            Scene scene = new Scene(root);
             Stage stage = (Stage) btnPlay.getScene().getWindow();
             stage.setScene(scene);
 

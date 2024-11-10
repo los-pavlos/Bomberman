@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -31,9 +30,6 @@ public class GameController {
     private boolean spacePressed = false;
     private boolean mPressed = false;
 
-
-
-
     @FXML
     private Button btnReset;
 
@@ -46,7 +42,16 @@ public class GameController {
     @FXML
     private Label topLabel;
 
+    private String player1Name;
+    private String player2Name;
 
+    public void setPlayerNames(String player1Name, String player2Name) {
+        this.player1Name = player1Name;
+        this.player2Name = player2Name;
+        if (timer == null) {
+            initializeTimer();
+        }
+    }
 
     @FXML
     void menu(ActionEvent event) {
@@ -60,11 +65,8 @@ public class GameController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-
-    //  start timer
     @FXML
     void reset(ActionEvent event) {
         timer.resetGame();
@@ -72,32 +74,35 @@ public class GameController {
         timer.start();
     }
 
-
     @FXML
-        void initialize() {
-            timer = new DrawingThread(canvas, this);
-            timer.start();
-            topLabel.setText("Game is running...");
-            // Zablokování mezerníku pro tlačítko reset
-            btnReset.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-                if (event.getCode() == javafx.scene.input.KeyCode.SPACE) {
-                    event.consume();  // Zastaví výchozí akci tlačítka na mezerník
-                }
-            });
-            btnMenu.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-                if (event.getCode() == javafx.scene.input.KeyCode.SPACE) {
-                    event.consume();  // Zastaví výchozí akci tlačítka na mezerník
-                }
-            });
-
-            setupControls();
+    void initialize() {
+        if (player1Name != null && player2Name != null) {
+            initializeTimer();
         }
-
-        public void stop(){
-                timer.stop();
+        // Block space key for reset and menu buttons
+        btnReset.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.SPACE) {
+                event.consume();  // Stop default action of space key
             }
+        });
+        btnMenu.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == javafx.scene.input.KeyCode.SPACE) {
+                event.consume();  // Stop default action of space key
+            }
+        });
 
+        setupControls();
+    }
 
+    private void initializeTimer() {
+        timer = new DrawingThread(canvas, this, player1Name, player2Name);
+        timer.start();
+        topLabel.setText("Game is running...");
+    }
+
+    public void stop() {
+        timer.stop();
+    }
 
     public void setupControls() {
         Scene scene = canvas.getScene();
@@ -145,7 +150,6 @@ public class GameController {
     public boolean isSpacePressed() { return spacePressed; }
     public boolean ismPressed() { return mPressed; }
 
-
     public Label getTopLabel() {
         return topLabel;
     }
@@ -153,9 +157,6 @@ public class GameController {
     public void setTopLabel(String text) {
         topLabel.setText(text);
     }
-
-
-
 
     private class Dead implements DeadListener {
         @Override
@@ -167,5 +168,4 @@ public class GameController {
     public DeadListener getDeadListener() {
         return new Dead();
     }
-
-    }
+}
