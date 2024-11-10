@@ -5,6 +5,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DrawingThread extends AnimationTimer {
     private final Canvas canvas;
     private final GraphicsContext gc;
@@ -16,7 +19,7 @@ public class DrawingThread extends AnimationTimer {
     private Boost speedBoost;
     public static boolean randomMap = false;
 
-    private Drawable[] drawables;
+    private List<Drawable> drawables;
     private long lastUpdate = 0;
     private long startTime;
     public DrawingThread(Canvas canvas, GameController controller) {
@@ -27,16 +30,20 @@ public class DrawingThread extends AnimationTimer {
         this.player2 = new Player(this.map, 13, 9, "/Player2/", "Player2", controller);
 
         // Instantiate boosts
-        this.speedBoost = new SpeedBoost(600,  map);
+        this.speedBoost = new SpeedBoost(600, map);
         this.bombRangeBoost = new BombRangeBoost(600, map);
 
+        this.drawables = new ArrayList<>();
+        this.drawables.add(map);
+        this.drawables.add(player1);
+        this.drawables.add(player2);
+        this.drawables.add(speedBoost);
+        this.drawables.add(bombRangeBoost);
 
-        this.drawables = new Drawable[]{map, player1, player2, speedBoost, bombRangeBoost};
         this.controller = controller;
-
         this.startTime = System.currentTimeMillis();
 
-        //  reset aby se vygenerovala nova mapa (kdyz ma byt nahodna)
+        // Reset to generate a new map if it should be random
         resetGame();
     }
 
@@ -113,12 +120,11 @@ public class DrawingThread extends AnimationTimer {
                 player1.checkAndApplyBoost(boost);
                 player2.checkAndApplyBoost(boost);
 
-                if(boost.getDuration() <= 0){
+                if (boost.getDuration() <= 0) {
                     boost.removeEffect();
                     boost.renew();
                 }
             }
-
         }
         checkBoostCoordinates();
 
