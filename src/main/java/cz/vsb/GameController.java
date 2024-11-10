@@ -12,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+// src/main/java/cz/vsb/GameController.java
 
 public class GameController {
 
@@ -59,6 +60,9 @@ public class GameController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
             Parent root = loader.load();
+            MenuController menuController = loader.getController();
+            menuController.setPlayerNames(player1Name, player2Name); // Pass the player names back
+
             Scene scene = new Scene(root);
             Stage stage = (Stage) btnMenu.getScene().getWindow();
             stage.setScene(scene);

@@ -20,16 +20,20 @@ public class MenuController {
     private CheckBox checkbxRandMap;
 
     @FXML
-    private void initialize() {
-        btnPlay.setOnAction(event -> switchToGameScene());
-    }
-
-    @FXML
     private TextField tfPlayer1;
 
     @FXML
     private TextField tfPlayer2;
 
+    @FXML
+    private void initialize() {
+        btnPlay.setOnAction(event -> switchToGameScene());
+    }
+
+    public void setPlayerNames(String player1Name, String player2Name) {
+        tfPlayer1.setText(player1Name);
+        tfPlayer2.setText(player2Name);
+    }
 
     private void setCheckbxRandMap() {
         if (checkbxRandMap.isSelected()) {
