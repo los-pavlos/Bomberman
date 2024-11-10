@@ -1,0 +1,46 @@
+
+#menuPanel {
+    -fx-background-image:url("background.jpg");
+    -fx-background-size: stretch;
+}
+
+
+Label {
+    -fx-text-fill: RGB(204, 204, 0);
+}
+
+
+#checkbxRandMap{
+    -fx-text-fill: RGB(204, 204, 0);
+    -fx-effect: dropshadow(gaussian,  black, 50.0, 0.7, 0.0, 0.0);
+
+
+
+
+}
+
+TextField{
+    -fx-font-family: "VT323 Regular";
+    -fx-font-size: 40;
+    -fx-padding: 1,1,1,1;
+    -fx-border-color: grey;
+    -fx-border-width: 2;
+    -fx-border-radius: 1;
+    -fx-border: gone;
+    -fx-background-color: transparent;
+    -fx-text-fill: RGB(204, 204, 0);
+}
+
+Button {
+    -fx-background-color: RGBA(0, 0, 153,0.5);
+    -fx-text-fill: RGB(204, 204, 0);
+    -fx-font-size: 50px;
+    -fx-font-family: VT323 Regular;
+    -fx-background-radius: 30.0px;
+    -fx-border-radius: 30.0px;
+    -fx-border-color: RGBA(204, 204, 0,0.5);
+    -fx-border-width: 3px;
+}
+
+
+

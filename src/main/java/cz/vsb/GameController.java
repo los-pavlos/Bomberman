@@ -12,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 // src/main/java/cz/vsb/GameController.java
 
 public class GameController {
@@ -64,6 +65,8 @@ public class GameController {
             menuController.setPlayerNames(player1Name, player2Name); // Pass the player names back
 
             Scene scene = new Scene(root);
+            URL cssUrl = getClass().getResource("/application.css");
+            scene.getStylesheets().add(cssUrl.toString());
             Stage stage = (Stage) btnMenu.getScene().getWindow();
             stage.setScene(scene);
         } catch (IOException e) {

@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import java.net.URL;
+
 public class App extends Application {
 
 	public static void main(String[] args) {
@@ -30,6 +32,8 @@ public class App extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
 			Parent root = loader.load();
 			Scene scene = new Scene(root);
+			URL cssUrl = getClass().getResource("/application.css");
+			scene.getStylesheets().add(cssUrl.toString());
 			primaryStage.setScene(scene);
 		} catch (Exception e) {
 			e.printStackTrace();
