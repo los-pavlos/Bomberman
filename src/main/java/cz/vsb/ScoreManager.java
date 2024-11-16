@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ScoreManager {
-    private static final String FILE_NAME = "win_counts.txt";
+    private static final String FILE_NAME = "win_counts.csv";
 
     public static void saveWin(String playerName) {
         Map<String, Integer> winCounts = loadWinCounts();
