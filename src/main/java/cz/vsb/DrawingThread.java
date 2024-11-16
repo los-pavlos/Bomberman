@@ -107,11 +107,9 @@ public class DrawingThread extends AnimationTimer {
         // Check if the game is over
          if (map.isPlayerInExplosion(player1)) {
             player1.hit();
-            stop();
         }
         else if (map.isPlayerInExplosion(player2)) {
              player2.hit();
-             stop();
         }
         // Check and apply boosts for each player
         for (Drawable drawable : drawables) {

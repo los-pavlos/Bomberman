@@ -38,5 +38,26 @@ Button {
     -fx-border-width: 3px;
 }
 
+/* Style for ScrollPane */
+ScrollPane {
+    -fx-background-color: transparent;
+    -fx-border-color: grey;
+    -fx-border-width: 2;
+}
+
+ScrollPane .viewport {
+    -fx-background-color: RGBA(0, 0, 153,0.5);
+}
 
 
+GridPane .label {
+
+    -fx-text-fill: RGB(204, 204, 0);
+    -fx-font-family: "VT323 Regular";
+    -fx-font-size: 25;
+
+}
+
+GridPane .label.third-column {
+    -fx-padding: 0 0 0 70px; /* Add left padding */
+}

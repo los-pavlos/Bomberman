@@ -32,6 +32,9 @@ public class GameController {
     private boolean spacePressed = false;
     private boolean mPressed = false;
 
+    ScoreManager scoreManager = new ScoreManager();
+    private boolean gameEnded = false;
+
     @FXML
     private Button btnReset;
 
@@ -79,10 +82,12 @@ public class GameController {
         timer.resetGame();
         topLabel.setText("Game is running...");
         timer.start();
+        gameEnded = false;
     }
 
     @FXML
     void initialize() {
+
         if (player1Name != null && player2Name != null) {
             initializeTimer();
         }
@@ -169,10 +174,25 @@ public class GameController {
         @Override
         public void playerDead(Player player) {
             setTopLabel(player.getName() + " is dead!!!!!!!!");
+            if(!gameEnded){
+                if(player.getName().equals(player1Name)){
+                    ScoreManager.saveWin(player2Name);
+                    gameEnded = true;
+                    stop();
+                }
+
+                if(player.getName().equals(player2Name)){
+                    ScoreManager.saveWin(player1Name);
+                    gameEnded = true;
+                    stop();
+                }
+            }
+
         }
     }
 
     public DeadListener getDeadListener() {
         return new Dead();
     }
+
 }

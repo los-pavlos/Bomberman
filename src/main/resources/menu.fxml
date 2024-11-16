@@ -4,21 +4,37 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="menuPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0"  xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.vsb.MenuController">
+<Pane fx:id="menuPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.vsb.MenuController">
    <children>
       <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1200.0" spacing="20.0">
          <children>
-            <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" prefHeight="258.0" prefWidth="1200.0" text="Bomberman Game">
+            <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" prefHeight="131.0" prefWidth="1200.0" text="Bomberman Game">
                <font>
                   <Font name="VT323 Regular" size="120.0" />
                </font>
             </Label>
+            <Label text="Leaderboard">
+               <font>
+                  <Font name="VT323 Regular" size="46.0" />
+               </font>
+            </Label>
+            <ScrollPane fx:id="leaderboardScrollPane" maxHeight="150.0" maxWidth="300.0" prefHeight="150.0" prefWidth="300.0">
+               <content>
+                  <GridPane fx:id="leaderboard" hgap="10" prefHeight="99.0" prefWidth="233.0" vgap="5">
+                     <padding>
+                        <Insets bottom="10" left="10" right="10" top="10" />
+                     </padding>
+                  </GridPane>
+               </content>
+            </ScrollPane>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
                <children>
                   <TextField fx:id="tfPlayer1" alignment="CENTER" prefHeight="99.0" prefWidth="479.0" promptText="1st Player name" text="Player 1">
