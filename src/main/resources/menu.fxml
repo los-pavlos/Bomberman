@@ -28,7 +28,7 @@
             </Label>
             <ScrollPane fx:id="leaderboardScrollPane" maxHeight="150.0" maxWidth="300.0" prefHeight="150.0" prefWidth="300.0">
                <content>
-                  <GridPane fx:id="leaderboard" hgap="10" prefHeight="99.0" prefWidth="233.0" vgap="5">
+                  <GridPane fx:id="leaderboard" hgap="10" prefHeight="150.0" prefWidth="300.0" vgap="5">
                      <padding>
                         <Insets bottom="10" left="10" right="10" top="10" />
                      </padding>

@@ -1,3 +1,7 @@
+@font-face {
+    font-family: "VT323 Regular";
+    src: url("/VT323-Regular.ttf");
+}
 
 #menuPanel {
     -fx-background-image:url("background.jpg");
@@ -7,51 +11,92 @@
 
 Label {
     -fx-text-fill: RGB(204, 204, 0);
+    -fx-font-family: "VT323 Regular";
 }
 
 
-#checkbxRandMap{
+.check-box {
     -fx-text-fill: RGB(204, 204, 0);
-    -fx-effect: dropshadow(gaussian,  black, 50.0, 0.7, 0.0, 0.0);
+    -fx-font-size: 50px;
+    -fx-font-family: "VT323 Regular";
+}
+
+
+.check-box .box {
+    -fx-background-color: RGBA(0, 0, 153, 0.5);
+    -fx-border-color: RGBA(204, 204, 0,0.5);
+    -fx-border-width: 3;
+    -fx-border-radius: 5.0px;
+    -fx-margin-left: 10px;
+}
+
+.check-box .text{
+    -fx-effect: dropshadow(gaussian, black, 15.0, 0.5, 0, 0); /* Efekt stínu */
+}
+
+.check-box:selected .mark {
+    -fx-background-color: RGB(204, 204, 0);;
 }
 
 TextField{
     -fx-font-family: "VT323 Regular";
     -fx-font-size: 40;
     -fx-padding: 1,1,1,1;
-    -fx-border-color: grey;
+
     -fx-border-width: 2;
-    -fx-border-radius: 1;
+
     -fx-border: gone;
-    -fx-background-color: transparent;
+    -fx-background-color: RGBA(0, 0, 153,0.5);
     -fx-text-fill: RGB(204, 204, 0);
+
+    -fx-background-radius: 20.0px;
+    -fx-border-radius: 20.0px;
+    -fx-border-color: RGBA(204, 204, 0,0.5);
 }
 
 Button {
     -fx-background-color: RGBA(0, 0, 153,0.5);
     -fx-text-fill: RGB(204, 204, 0);
     -fx-font-size: 50px;
-    -fx-font-family: VT323 Regular;
-    -fx-background-radius: 30.0px;
-    -fx-border-radius: 30.0px;
+    -fx-font-family: "VT323 Regular";
+    -fx-background-radius: 20.0px;
+    -fx-border-radius: 20.0px;
     -fx-border-color: RGBA(204, 204, 0,0.5);
     -fx-border-width: 3px;
+}
+
+Button:hover{
+    -fx-text-fill: RGB(255, 255, 255);
+    -fx-border-color: RGBA(255, 255, 255,1);
 }
 
 /* Style for ScrollPane */
 ScrollPane {
     -fx-background-color: transparent;
-    -fx-border-color: grey;
+    -fx-border-width: 2;
+    -fx-background-radius: 5.0px;
+    -fx-border-radius: 5.0px;
+    -fx-border-color: RGBA(204, 204, 0,0.5);
+}
+
+ScrollPane .scroll-bar:vertical {
+    -fx-background-color: RGBA(0, 0, 153,0.5);
+}
+.scroll-bar:vertical .thumb {
+    -fx-background-color: RGBA(0, 0, 153,0.5);
+    -fx-border-color: RGBA(204, 204, 0,0.5);
+    -fx-background-radius: 5em;
+    -fx-border-radius: 5em;
     -fx-border-width: 2;
 }
 
 ScrollPane .viewport {
     -fx-background-color: RGBA(0, 0, 153,0.5);
+
 }
 
 
 GridPane .label {
-
     -fx-text-fill: RGB(204, 204, 0);
     -fx-font-family: "VT323 Regular";
     -fx-font-size: 25;
@@ -59,5 +104,6 @@ GridPane .label {
 }
 
 GridPane .label.third-column {
-    -fx-padding: 0 0 0 70px; /* Add left padding */
+    -fx-padding: 0 0 0 70px;
 }
+
