@@ -7,7 +7,11 @@ import java.util.Map;
 public class ScoreManager {
     private static final String FILE_NAME = "leaderboard.csv";
 
-    public static void saveWin(String playerName) {
+    public static synchronized void saveWin(String playerName) {
+        if (playerName == null || playerName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Player name cannot be null or empty.");
+        }
+
         Map<String, Integer> winCounts = loadWinCounts();
         winCounts.put(playerName, winCounts.getOrDefault(playerName, 0) + 1);
         saveWinCounts(winCounts);
@@ -22,6 +26,7 @@ public class ScoreManager {
             } catch (IOException e) {
                 System.err.println("Error creating file: " + FILE_NAME);
                 e.printStackTrace();
+                return winCounts; // Return empty map
             }
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
@@ -29,9 +34,15 @@ public class ScoreManager {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";");
                 if (parts.length == 2) {
-                    String name = parts[0];
-                    int count = Integer.parseInt(parts[1]);
-                    winCounts.put(name, count);
+                    try {
+                        String name = parts[0];
+                        int count = Integer.parseInt(parts[1]);
+                        winCounts.put(name, count);
+                    } catch (NumberFormatException e) {
+                        System.err.println("Invalid data in file: " + line);
+                    }
+                } else {
+                    System.err.println("Malformed line in file: " + line);
                 }
             }
         } catch (IOException e) {
@@ -41,7 +52,7 @@ public class ScoreManager {
         return winCounts;
     }
 
-    private static void saveWinCounts(Map<String, Integer> winCounts) {
+    private static synchronized void saveWinCounts(Map<String, Integer> winCounts) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
             for (Map.Entry<String, Integer> entry : winCounts.entrySet()) {
                 writer.write(entry.getKey() + ";" + entry.getValue());

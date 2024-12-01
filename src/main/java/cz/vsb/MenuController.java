@@ -1,11 +1,12 @@
 package cz.vsb;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,20 +30,28 @@ public class MenuController {
     private TextField tfPlayer2;
 
     @FXML
-    private GridPane leaderboard;
+    private TableView<PlayerScore> leaderboard;
 
     @FXML
-    private ScrollPane leaderboardScrollPane;
+    private TableColumn<PlayerScore, String> leaderboardName;
+
+    @FXML
+    private TableColumn<PlayerScore, Integer> leaderboardWins;
+
+    private ObservableList<PlayerScore> playerScores = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
-        btnPlay.setOnAction(event -> switchToGameScene());
+        // Bind columns to properties
+        leaderboardName.setCellValueFactory(data -> data.getValue().nameProperty());
+        leaderboardWins.setCellValueFactory(data -> data.getValue().winsProperty().asObject());
 
+        // Load top players into the leaderboard
         loadTopPlayers();
 
-        leaderboardScrollPane.viewportBoundsProperty().addListener((observable, oldValue, newValue) -> {
-            leaderboard.setPrefWidth(newValue.getWidth());
-        });
+        // Set Play button action
+        btnPlay.setOnAction(event -> switchToGameScene());
+        leaderboard.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); // Automatická velikost sloupců
     }
 
     public void setPlayerNames(String player1Name, String player2Name) {
@@ -51,11 +60,7 @@ public class MenuController {
     }
 
     private void setCheckbxRandMap() {
-        if (checkbxRandMap.isSelected()) {
-            DrawingThread.randomMap = true;
-        } else {
-            DrawingThread.randomMap = false;
-        }
+        DrawingThread.randomMap = checkbxRandMap.isSelected();
     }
 
     private void switchToGameScene() {
@@ -78,27 +83,21 @@ public class MenuController {
     }
 
     private void loadTopPlayers() {
+        // Clear the existing data
+        playerScores.clear();
+
+        // Fetch and sort the win counts
         Map<String, Integer> winCounts = ScoreManager.getWinCounts();
         List<Map.Entry<String, Integer>> sortedWinCounts = winCounts.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toList());
 
-        leaderboard.getChildren().clear();
-
-        for (int i = 0; i < sortedWinCounts.size(); i++) {
-            Map.Entry<String, Integer> entry = sortedWinCounts.get(i);
-            Label rankLabel = new Label((i + 1) + ".");
-            Label nameLabel = new Label(entry.getKey());
-            Label winCountLabel = new Label(String.valueOf(entry.getValue()));
-
-            rankLabel.getStyleClass().add("cell");
-            nameLabel.getStyleClass().add("cell");
-            winCountLabel.getStyleClass().add("third-column");
-
-            leaderboard.add(rankLabel, 0, i);
-            leaderboard.add(nameLabel, 1, i);
-            leaderboard.add(winCountLabel, 2, i);
+        // Add the data to the observable list
+        for (Map.Entry<String, Integer> entry : sortedWinCounts) {
+            playerScores.add(new PlayerScore(entry.getKey(), entry.getValue()));
         }
-    }
 
+        // Update the TableView
+        leaderboard.setItems(playerScores);
+    }
 }
