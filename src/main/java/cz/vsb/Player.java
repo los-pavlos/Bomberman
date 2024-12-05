@@ -28,7 +28,7 @@ public class Player implements Drawable {
     public Player(GameMap map, int startX, int startY, String imagePath, String name, GameController controller) {
         this.x = startX * 80;
         this.y = startY * 80;
-        this.speed = 4; // Default player speed, will be 2 after picking up a boost
+        this.speed = 4;
         this.map = map;
         this.name = name;
         this.controller = controller;

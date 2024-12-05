@@ -32,6 +32,7 @@ public class App extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
 			Parent root = loader.load();
 			Scene scene = new Scene(root);
+
 			URL cssUrl = getClass().getResource("/application.css");
 			scene.getStylesheets().add(cssUrl.toString());
 			primaryStage.setScene(scene);

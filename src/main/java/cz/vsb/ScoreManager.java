@@ -7,17 +7,16 @@ import java.util.Map;
 public class ScoreManager {
     private static final String FILE_NAME = "leaderboard.csv";
 
-    public static synchronized void saveWin(String playerName) {
-        if (playerName == null || playerName.trim().isEmpty()) {
-            throw new IllegalArgumentException("Player name cannot be null or empty.");
+    public void saveWin(String playerName) {
+        if(playerName.equals("Player 1") || playerName.equals("Player 2")) {
+            return;
         }
-
         Map<String, Integer> winCounts = loadWinCounts();
         winCounts.put(playerName, winCounts.getOrDefault(playerName, 0) + 1);
         saveWinCounts(winCounts);
     }
 
-    private static Map<String, Integer> loadWinCounts() {
+    private Map<String, Integer> loadWinCounts() {
         Map<String, Integer> winCounts = new HashMap<>();
         File file = new File(FILE_NAME);
         if (!file.exists()) {
@@ -52,7 +51,7 @@ public class ScoreManager {
         return winCounts;
     }
 
-    private static synchronized void saveWinCounts(Map<String, Integer> winCounts) {
+    private void saveWinCounts(Map<String, Integer> winCounts) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
             for (Map.Entry<String, Integer> entry : winCounts.entrySet()) {
                 writer.write(entry.getKey() + ";" + entry.getValue());
@@ -64,7 +63,7 @@ public class ScoreManager {
         }
     }
 
-    public static Map<String, Integer> getWinCounts() {
+    public Map<String, Integer> getWinCounts() {
         return loadWinCounts();
     }
 }

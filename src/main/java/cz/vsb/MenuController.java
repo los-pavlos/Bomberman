@@ -40,6 +40,7 @@ public class MenuController {
 
     private ObservableList<PlayerScore> playerScores = FXCollections.observableArrayList();
 
+
     @FXML
     private void initialize() {
         // Bind columns to properties
@@ -55,8 +56,13 @@ public class MenuController {
     }
 
     public void setPlayerNames(String player1Name, String player2Name) {
-        tfPlayer1.setText(player1Name);
-        tfPlayer2.setText(player2Name);
+        if(player1Name != null || !player1Name.isEmpty()) {
+            tfPlayer1.setText(player1Name);
+        }
+        if(player2Name != null || !player2Name.isEmpty()) {
+            tfPlayer2.setText(player2Name);
+        }
+
     }
 
     private void setCheckbxRandMap() {
@@ -86,8 +92,11 @@ public class MenuController {
         // Clear the existing data
         playerScores.clear();
 
+        // Create an instance of ScoreManager
+        ScoreManager scoreManager = new ScoreManager();
+
         // Fetch and sort the win counts
-        Map<String, Integer> winCounts = ScoreManager.getWinCounts();
+        Map<String, Integer> winCounts = scoreManager.getWinCounts();
         List<Map.Entry<String, Integer>> sortedWinCounts = winCounts.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toList());

@@ -34,12 +34,12 @@
             </TableView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
                <children>
-                  <TextField fx:id="tfPlayer1" alignment="CENTER" prefHeight="99.0" prefWidth="479.0" promptText="1st Player name" text="Player 1">
+                  <TextField fx:id="tfPlayer1" alignment="CENTER" prefHeight="99.0" prefWidth="479.0" promptText="Player 1">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="tfPlayer2" alignment="CENTER" prefHeight="99.0" prefWidth="479.0" promptText="2nd Player name" text="Player 2">
+                  <TextField fx:id="tfPlayer2" alignment="CENTER" prefHeight="99.0" prefWidth="479.0" promptText="Player 2">
                      <font>
                         <Font size="25.0" />
                      </font>

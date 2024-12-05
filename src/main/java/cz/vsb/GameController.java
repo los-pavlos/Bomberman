@@ -51,8 +51,17 @@ public class GameController {
     private String player2Name;
 
     public void setPlayerNames(String player1Name, String player2Name) {
-        this.player1Name = player1Name;
-        this.player2Name = player2Name;
+        if(player1Name == null || player1Name.isEmpty()) {
+            this.player1Name = "Player 1";
+        } else {
+            this.player1Name = player1Name;
+        }
+        if (player2Name == null || player2Name.isEmpty()) {
+            this.player2Name = "Player 2";
+        } else {
+            this.player2Name = player2Name;
+        }
+
         if (timer == null) {
             initializeTimer();
         }
@@ -174,20 +183,20 @@ public class GameController {
         @Override
         public void playerDead(Player player) {
             setTopLabel(player.getName() + " is dead!!!!!!!!");
-            if(!gameEnded){
-                if(player.getName().equals(player1Name)){
-                    ScoreManager.saveWin(player2Name);
+            if (!gameEnded) {
+                ScoreManager scoreManager = new ScoreManager();
+                if (player.getName().equals(player1Name)) {
+                    scoreManager.saveWin(player2Name);
                     gameEnded = true;
                     stop();
                 }
 
-                if(player.getName().equals(player2Name)){
-                    ScoreManager.saveWin(player1Name);
+                if (player.getName().equals(player2Name)) {
+                    scoreManager.saveWin(player1Name);
                     gameEnded = true;
                     stop();
                 }
             }
-
         }
     }
 
