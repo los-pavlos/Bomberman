@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrawingThread extends AnimationTimer {
+public class  DrawingThread extends AnimationTimer {
     private final Canvas canvas;
     private final GraphicsContext gc;
     private final GameMap map;

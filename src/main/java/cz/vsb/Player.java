@@ -19,6 +19,7 @@ public class Player implements Drawable {
     private final int size = 80;
     private GameMap map;
     private long bombDelay = 2500;
+
     private long lastBombTime = 0;
     private int bombRange = 2;
     private String name;
@@ -42,8 +43,45 @@ public class Player implements Drawable {
     }
 
     public void move(int deltaX, int deltaY) {
-        int newX = x + deltaX * speed;
-        int newY = y + deltaY * speed;
+        int newX=0;
+        int newY=0;
+
+        int tolerance = 10;
+
+
+             newX = x + deltaX * speed;
+             newY = y + deltaY * speed;
+
+            // Check if the new position is free
+            if (map.isEmpty(newX, newY)) {
+                x = newX;
+                y = newY;
+                return;
+            }
+
+         newX=0;
+         newY=0;
+
+
+        if(deltaX!=0){
+            newX = x + deltaX * speed;
+            if(y%80<=tolerance){
+                newY = (y/80) *80;
+            }
+            if(y%80>=size-tolerance){
+                newY = ((y + size) / 80) * 80;
+            }
+
+        }
+        if(deltaY!=0){
+            newY = y + deltaY * speed;
+            if(x%80<=tolerance){
+                newX = (x/80) *80;
+            }
+            if(x%80>=size-tolerance){
+                newX = ((x + size) / 80) * 80;
+            }
+        }
 
         // Check if the new position is free
         if (map.isEmpty(newX, newY)) {

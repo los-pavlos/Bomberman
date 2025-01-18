@@ -20,6 +20,7 @@ class GameMap implements Drawable {
             blocks.add(new ArrayList<>());
         }
         generateMap(false);
+        generateMap(false);
     }
 
     private void generateMap(boolean isMapRandom) {
