@@ -46,7 +46,7 @@ public class Player implements Drawable {
         int newX=0;
         int newY=0;
 
-        int tolerance = 10;
+        int tolerance = 16;
 
 
              newX = x + deltaX * speed;

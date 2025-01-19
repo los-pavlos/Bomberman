@@ -52,7 +52,7 @@ public class  DrawingThread extends AnimationTimer {
 
     @Override
     public void handle(long now) {
-        if (now - lastUpdate >= 16_000_000) { // 16 milliseconds (approx. 60fps)
+        if (now - lastUpdate >= 8_000_000) { // 16 milliseconds (approx. 60fps)
             gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
             for (Drawable drawable : drawables) {
