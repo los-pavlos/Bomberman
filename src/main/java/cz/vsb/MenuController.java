@@ -52,7 +52,7 @@ public class MenuController {
 
         // Set Play button action
         btnPlay.setOnAction(event -> switchToGameScene());
-        leaderboard.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); // Automatická velikost sloupců
+        leaderboard.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); // automatic column size
     }
 
     public void setPlayerNames(String player1Name, String player2Name) {

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 class GameMap implements Drawable {
-    private List<List<Block>> blocks;   // 2D kolekce bloků
+    private List<List<Block>> blocks;   // 2D collection of blocks
     private final int rows = 11;
     private final int cols = 15;
 
@@ -24,38 +24,38 @@ class GameMap implements Drawable {
     }
 
     private void generateMap(boolean isMapRandom) {
-        // Startivni prostor pro hráče
+        // starting positions
         int[][] playerSpawnPositions = {
-                {1, 1}, {1, 2}, {2, 1},  // Bloky pro hráče 1
-                {rows - 2, cols - 2}, {rows - 3, cols - 2}, {rows - 2, cols - 3}  // Bloky pro hráče 2
+                {1, 1}, {1, 2}, {2, 1},  // blocks for player 1
+                {rows - 2, cols - 2}, {rows - 3, cols - 2}, {rows - 2, cols - 3}  // blocks for player 2
         };
 
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                // Okrajové bloky - neznicitelne
+                // indestructible frame
                 if (row == 0 || row == rows - 1 || col == 0 || col == cols - 1) {
                     blocks.get(row).add(new IndestructibleBlock(col, row));
                 }
-                // Druhá vrstva za okrajem - zničitelné kromě spawn míst
+                // destructible frame
                 else if (row == 1 || row == rows - 2 || col == 1 || col == cols - 2) {
                     if (isPlayerSpawn(row, col, playerSpawnPositions)) {
-                        blocks.get(row).add(new EmptyBlock(col, row)); // Prázdné místo pro spawn
+                        blocks.get(row).add(new EmptyBlock(col, row)); // spawn
                     } else {
-                        blocks.get(row).add(new DestructibleBlock(col, row)); // Zničitelné bloky
+                        blocks.get(row).add(new DestructibleBlock(col, row)); // destructible
                     }
                 }
-                // Zbytek mapy...
+                // the rest...
                 else if(isMapRandom){
                     if (new Random().nextInt(100) < 60) {
-                        blocks.get(row).add(new DestructibleBlock(col, row)); // Zničitelné bloky
+                        blocks.get(row).add(new DestructibleBlock(col, row)); // destructible
                     } else {
-                        blocks.get(row).add(new IndestructibleBlock(col, row)); // Nezničitelné bloky
+                        blocks.get(row).add(new IndestructibleBlock(col, row)); // indestructible
                     }
                 }
                 else if (row % 2 != 0 || col % 2 != 0) {
-                    blocks.get(row).add(new DestructibleBlock(col, row)); // Zničitelné bloky
+                    blocks.get(row).add(new DestructibleBlock(col, row)); // destructible
                 } else {
-                    blocks.get(row).add(new IndestructibleBlock(col, row)); // Nezničitelné bloky
+                    blocks.get(row).add(new IndestructibleBlock(col, row)); // indestructible
                 }
             }
         }
@@ -77,13 +77,14 @@ class GameMap implements Drawable {
                 blocks.get(row).get(col).draw(gc);
             }
         }
-        // kvuli odstranovani behem iterace
+
+
         Iterator<Bomb> iterator = bombs.iterator();
         while (iterator.hasNext()) {
             Bomb bomb = iterator.next();
 
             if (!bomb.isActive() && bomb.hasExplosionEnded()) {
-                iterator.remove(); // Bezpečné odstranění během iterace
+                iterator.remove();
             } else {
                 bomb.checkExplosion(); // Check if the bomb should explode
                 bomb.draw(gc);
@@ -94,7 +95,7 @@ class GameMap implements Drawable {
     public boolean isEmpty(int pixelX, int pixelY) {
         int blockSize = 80;
 
-        // Vypočítání blokových souřadnic pro čtyři rohy
+        // corner coordinates
         int topLeftX = pixelX / blockSize;
         int topLeftY = pixelY / blockSize;
 
@@ -107,7 +108,7 @@ class GameMap implements Drawable {
         int bottomRightX = (pixelX + blockSize - 1) / blockSize;
         int bottomRightY = (pixelY + blockSize - 1) / blockSize;
 
-        // Kontrola, zda jsou všechny čtyři rohové bloky prázdné
+        // check if 4 corners are empty
         int[][] corners = {
                 {topLeftX, topLeftY},
                 {topRightX, topRightY},
@@ -164,7 +165,7 @@ class GameMap implements Drawable {
         bombs.add(bomb);
     }
 
-    // metoda která kontroluje zda je hráč v explozi, ale jen když zrovna exploze probíhá
+    // check if player is in explosion
     public boolean isPlayerInExplosion(Player player) {
         for (Bomb bomb : bombs) {
             if (!bomb.hasExplosionEnded() && bomb.isInRange(player.getX(), player.getY())) {

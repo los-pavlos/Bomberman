@@ -4,11 +4,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class Bomb implements Drawable {
-    private final int x;  // v blocích...
+    private final int x;  // cooridinates in blocks
     private final int y;
-    private final int range; // Range výbuchu
-    private boolean isActive; // Stav bomby (aktivní/neaktivní)
-    private final long placedTime; // Čas, kdy byla bomba položena
+    private final int range; // range of explosion
+    private boolean isActive; // active / inactive
+    private final long placedTime; // bomb placed time
     private final Image bombImage;
     private final Image explosionImage;
     private GameMap map;
@@ -37,10 +37,10 @@ public class Bomb implements Drawable {
     }
 
     private void drawExplosion(GraphicsContext gc) {
-        // vybuch na bombe
+        // explosion on bomb
         gc.drawImage(explosionImage, x * 80, y * 80, 80, 80);
 
-        // vykresleni vybuchu do daneho range do vsech smeru
+        // explosion in range
         for (int i = 1; i <= range; i++) {
             // Check left
             if (map.getBlock(x - i, y) instanceof IndestructibleBlock) {
@@ -84,7 +84,7 @@ public class Bomb implements Drawable {
     }
 
     public void checkExplosion() {
-        if (isActive && (System.currentTimeMillis() - placedTime >= 2000)) { // 2 sekundy
+        if (isActive && (System.currentTimeMillis() - placedTime >= 2000)) { // 2 seconds
             activate();
             explosionStartTime = System.currentTimeMillis();
         }
@@ -95,7 +95,7 @@ public class Bomb implements Drawable {
     }
 
 
-    //  Pokud je stred hrace v explozi
+    //  if is player center in explosion
     public boolean isInRange(int playerX, int playerY) {
         int bombX = x;
         int bombY = y;

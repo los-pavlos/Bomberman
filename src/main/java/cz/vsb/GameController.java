@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-// src/main/java/cz/vsb/GameController.java
+
 
 public class GameController {
 

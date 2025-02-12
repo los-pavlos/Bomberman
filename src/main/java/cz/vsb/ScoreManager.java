@@ -8,28 +8,28 @@ import java.util.Map;
 public class ScoreManager {
     private static final String FILE_NAME = "leaderboard.csv";
 
-    // Získání cesty k souboru pro ukládání výher
+    // get the path
     private Path getFilePath() {
-        String appDataPath = System.getenv("LOCALAPPDATA");  // Pro AppData\Local
+        String appDataPath = System.getenv("LOCALAPPDATA");  //  AppData\Local
         if (appDataPath == null) {
-            // Pokud není dostupné LOCALAPPDATA, použijeme APPDATA (pro AppData\Roaming)
+            //if there is no local use roaming
             appDataPath = System.getenv("APPDATA");
         }
 
-        Path directory = Paths.get(appDataPath, "BombermanByPablo"); // Zde použijte jméno vaší aplikace
+        Path directory = Paths.get(appDataPath, "BombermanByPablo");
         try {
-            Files.createDirectories(directory);  // Vytvoří složku, pokud neexistuje
+            Files.createDirectories(directory);  // Create folder
         } catch (IOException e) {
             System.err.println("Error creating directory: " + directory);
             e.printStackTrace();
         }
 
-        return directory.resolve(FILE_NAME);  // Kombinace složky a názvu souboru
+        return directory.resolve(FILE_NAME);  // folder and name
     }
 
     public void saveWin(String playerName) {
         if (playerName.equals("Player 1") || playerName.equals("Player 2")) {
-            return; // Pokud je to speciální hráč, neuložíme
+            return; // if it is Player1/2 does not save
         }
         Map<String, Integer> winCounts = loadWinCounts();
         winCounts.put(playerName, winCounts.getOrDefault(playerName, 0) + 1);
@@ -38,7 +38,7 @@ public class ScoreManager {
 
     private Map<String, Integer> loadWinCounts() {
         Map<String, Integer> winCounts = new HashMap<>();
-        Path filePath = getFilePath();  // Získání cesty k souboru
+        Path filePath = getFilePath();  // get file path
         File file = filePath.toFile();
         if (!file.exists()) {
             try {
@@ -46,7 +46,7 @@ public class ScoreManager {
             } catch (IOException e) {
                 System.err.println("Error creating file: " + filePath);
                 e.printStackTrace();
-                return winCounts; // Vrací prázdnou mapu při chybě
+                return winCounts; // empty map when error
             }
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -73,7 +73,7 @@ public class ScoreManager {
     }
 
     private void saveWinCounts(Map<String, Integer> winCounts) {
-        Path filePath = getFilePath();  // Získání cesty k souboru
+        Path filePath = getFilePath();  // file path
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath.toFile()))) {
             for (Map.Entry<String, Integer> entry : winCounts.entrySet()) {
                 writer.write(entry.getKey() + ";" + entry.getValue());
