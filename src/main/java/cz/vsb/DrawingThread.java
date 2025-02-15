@@ -22,6 +22,7 @@ public class  DrawingThread extends AnimationTimer {
     private List<Drawable> drawables;
     private long lastUpdate = 0;
     private long startTime;
+
     public DrawingThread(Canvas canvas, GameController controller, String player1Name, String player2Name) {
         this.canvas = canvas;
         this.gc = canvas.getGraphicsContext2D();

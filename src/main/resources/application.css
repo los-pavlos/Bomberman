@@ -31,7 +31,7 @@ Label {
 }
 
 .check-box .text{
-    -fx-effect: dropshadow(gaussian, black, 15.0, 0.5, 0, 0); /* Efekt stínu */
+    -fx-effect: dropshadow(gaussian, black, 15.0, 0.5, 0, 0); /* shadow effect */
 }
 
 .check-box:selected .mark {
@@ -96,6 +96,8 @@ TableView {
 /* Style for TableView headers */
 .table-view .column-header-background {
     -fx-background-color: transparent;
+    -fx-border-color: rgba(204, 204, 0, 0.5);
+    -fx-border-width: 0 0 2px 0; /* bottom border  */
 }
 
 .table-view .column-header .label {
@@ -138,17 +140,20 @@ TableView {
 }
 
 
-/* Styl hlavičky sloupců tabulky */
+/* header styling */
 .table-view .column-header {
     -fx-background-color: rgba(0, 0, 153, 0.6);
 
 }
 
-/* Styl textu v hlavičkách */
+/* header text styling */
 .table-view .column-header .label {
-    -fx-text-fill: rgb(255, 255, 0);              /* Žlutý text */
-    -fx-font-family: "VT323 Regular";            /* Specifický font */
-    -fx-font-size: 15px;                         /* Velikost textu */
-    -fx-alignment: center;                       /* Zarovnání textu na střed */
+    -fx-text-fill: rgb(255, 255, 0);
+    -fx-font-family: "VT323 Regular";
+    -fx-font-size: 14px;
+    -fx-alignment: center;
 }
 
+.table-view .filler {
+    -fx-background-color: rgba(0, 0, 153, 0.6);
+}
