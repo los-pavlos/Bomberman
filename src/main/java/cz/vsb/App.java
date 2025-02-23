@@ -45,6 +45,8 @@ public class App extends Application {
 	@Override
 	public void stop() throws Exception {
 		super.stop();
+
+
 	}
 
 	private void exitProgram(WindowEvent evt) {

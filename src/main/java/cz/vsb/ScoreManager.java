@@ -10,22 +10,26 @@ public class ScoreManager {
 
     // get the path
     private Path getFilePath() {
-        String appDataPath = System.getenv("LOCALAPPDATA");  //  AppData\Local
+        String appDataPath = System.getenv("LOCALAPPDATA");  // Windows-specific
         if (appDataPath == null) {
-            //if there is no local use roaming
-            appDataPath = System.getenv("APPDATA");
+            appDataPath = System.getenv("APPDATA");  // Windows Roaming AppData
+        }
+        if (appDataPath == null) {
+            // Fallback for Linux/macOS
+            appDataPath = System.getProperty("user.home");  // e.g., /home/user or /Users/user
         }
 
         Path directory = Paths.get(appDataPath, "BombermanByPablo");
         try {
-            Files.createDirectories(directory);  // Create folder
+            Files.createDirectories(directory);  // Ensure the directory exists
         } catch (IOException e) {
             System.err.println("Error creating directory: " + directory);
             e.printStackTrace();
         }
 
-        return directory.resolve(FILE_NAME);  // folder and name
+        return directory.resolve(FILE_NAME);
     }
+
 
     public void saveWin(String playerName) {
         if (playerName.equals("Player 1") || playerName.equals("Player 2")) {

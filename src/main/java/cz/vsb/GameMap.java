@@ -1,6 +1,6 @@
 package cz.vsb;
-import javafx.scene.canvas.GraphicsContext;
 
+import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -135,14 +135,6 @@ class GameMap implements Drawable {
         if (blocks.get(row).get(col) instanceof DestructibleBlock) {
             blocks.get(row).set(col, new EmptyBlock(col, row));
         }
-    }
-
-    public int getCols() {
-        return cols;
-    }
-
-    public int getRows() {
-        return rows;
     }
 
     public Block getBlock(int col, int row) {
