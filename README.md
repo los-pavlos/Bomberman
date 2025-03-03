@@ -2,7 +2,7 @@
 
 Bomberman is a classic multiplayer game written in **Java** using **JavaFX** and **Maven**. The game is designed for two players who move around the map, plant bombs, and try to eliminate each other. Players can choose between a **classic fixed map** or a **randomly generated map**.  
 
-![bombermanExample](https://github.com/user-attachments/assets/7c41ae28-64c7-40f8-a313-8d8133a221ff)
+
 
 ## Technologies  
 
@@ -17,6 +17,10 @@ Bomberman is a classic multiplayer game written in **Java** using **JavaFX** and
   - **Classic fixed map**  
   - **Randomly generated map**  
 - **Bombs**: Players can plant bombs, which explode after a set time, destroying nearby objects (e.g., walls) and potentially hitting the opponent.  
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/7c41ae28-64c7-40f8-a313-8d8133a221ff" alt="bombermanExample">
+</div>
 
 ## Controls  
 
