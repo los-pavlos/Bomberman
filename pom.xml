@@ -73,7 +73,6 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>3.8.1</version>
 				<executions>
-					<!-- Setup that goal copy-dependencies should be automatically executed during phase package-->
 					<execution>
 						<id>copy-dependencies</id>
 						<phase>package</phase>
@@ -81,7 +80,6 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<!--Specify where should be dependencies (libraries) copied-->
 							<outputDirectory>${project.build.directory}/libs</outputDirectory>
 						</configuration>
 					</execution>
@@ -95,7 +93,6 @@
 				<version>3.4.2</version>
 				<configuration>
 					<archive>
-						<!--Automatically create and add file MANIFEST.MF into jar and set specified additional properties-->
 						<manifestEntries>
 							<Name>cz/vsb/App</Name>
 							<Implementation-Build-Date>${maven.build.timestamp}</Implementation-Build-Date>
@@ -103,7 +100,6 @@
 							<Implementation-Vendor>VŠB FEI Departmet of Computer Science</Implementation-Vendor>
 							<Implementation-Version>${project.version}</Implementation-Version>
 						</manifestEntries>
-						<!--Automatically create and add file MANIFEST.MF into jar and set specified properties-->
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>libs/</classpathPrefix>
