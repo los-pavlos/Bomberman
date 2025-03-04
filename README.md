@@ -86,5 +86,5 @@ Before you begin, ensure you have the following installed:
    ```
 
 Now the game should be up and running!
-```
+
 
