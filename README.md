@@ -77,12 +77,14 @@ Before you begin, ensure you have the following installed:
 
 
 6. **Navigate to the Target Directory**
+
+   This step can be replaced by running run_project.bat which is located in the project's home directory.
+
    Move to the `target` directory and run following command:
    ```bash
    cd target
    java --module-path ".\project-0.0.1-SNAPSHOT.jar;.\libs" -m cz.vsb.project/cz.vsb.App
    ```
-This step can be replaced by running run_project.bat which is located in the project's home directory.
 
 
 Now the game should be up and running!
