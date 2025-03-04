@@ -56,23 +56,30 @@ Before you begin, ensure you have the following installed:
 
 1. **Clone the Repository**  
    Clone the project repository to your local machine.
+   ```bash
+   git clone https://github.com/los-pavlos/Bomberman.git
+   ```
+   
 
-2. **Navigate to the Project Directory**  
+3. **Navigate to the Project Directory**  
    Change to the home directory of the project.
+   ```bash
+   cd Bomberman
+   ```
 
-3. **Build the Project**  
+5. **Build the Project**  
    Run the following Maven command to clean and package the project:
    ```bash
    mvn clean package
    ```
 
-4. **Navigate to the Target Directory**  
+6. **Navigate to the Target Directory**  
    Move to the `target` directory:
    ```bash
    cd target
    ```
 
-5. **Run the Application**  
+7. **Run the Application**  
    Execute the following command to start the game:
    ```bash
    java --module-path ".\project-0.0.1-SNAPSHOT.jar;.\libs" -m cz.vsb.project/cz.vsb.App
