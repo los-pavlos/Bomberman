@@ -55,28 +55,20 @@ Before you begin, ensure you have the following installed:
 ## Steps to Run the Game
 
 1. **Clone the Repository**  
-   Clone the project repository to your local machine.
+   Clone the project repository to your local machine:
    ```bash
    git clone https://github.com/los-pavlos/Bomberman.git
    ```
    
 
-3. **Navigate to the Project Directory**  
-   Change to the home directory of the project.
+3. **Navigate to the Project Directory and build the Project**  
+   Change to the home directory of the project and run the following Maven command to clean and package the project:
    ```bash
    cd Bomberman
-   ```
-
-5. **Build the Project**  
-   Run the following Maven command to clean and package the project:
-   ```bash
    mvn clean package
    ```
 
-
-
-
-6. **Navigate to the Target Directory**
+4. **Navigate to the Target Directory**
 
    *(This step can be replaced by running run_project.bat which is located in the project's home directory.)*
 
