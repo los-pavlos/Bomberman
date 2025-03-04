@@ -74,6 +74,8 @@ Before you begin, ensure you have the following installed:
    ```
 
 This step can be replaced by running run_project.bat which is located in the project's home directory.
+
+
 6. **Navigate to the Target Directory**
    Move to the `target` directory and run following command:
    ```bash
