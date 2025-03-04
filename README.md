@@ -33,11 +33,51 @@ Bomberman is a classic multiplayer game written in **Java** using **JavaFX** and
   - Movement: Arrow keys  
   - Place bomb: `M`  
 
-## How to Run the Game  
 
-### Prerequisites  
+# How to Run the Game
 
-Make sure you have the following installed:  
-- **Java 21+** (check with `java -version`)  
-- **Maven** (check with `mvn -version`)  
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Java 21+**  
+  Verify the installation by running:  
+  ```bash
+  java -version
+  ```
+
+- **Maven**  
+  Verify the installation by running:  
+  ```bash
+  mvn -version
+  ```
+
+## Steps to Run the Game
+
+1. **Clone the Repository**  
+   Clone the project repository to your local machine.
+
+2. **Navigate to the Project Directory**  
+   Change to the home directory of the project.
+
+3. **Build the Project**  
+   Run the following Maven command to clean and package the project:
+   ```bash
+   mvn clean package
+   ```
+
+4. **Navigate to the Target Directory**  
+   Move to the `target` directory:
+   ```bash
+   cd target
+   ```
+
+5. **Run the Application**  
+   Execute the following command to start the game:
+   ```bash
+   java --module-path ".\project-0.0.1-SNAPSHOT.jar;.\libs" -m cz.vsb.project/cz.vsb.App
+   ```
+
+Now the game should be up and running!
+```
 
