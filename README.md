@@ -73,18 +73,15 @@ Before you begin, ensure you have the following installed:
    mvn clean package
    ```
 
+This step can be replaced by running run_project.bat which is located in the project's home directory.
 6. **Navigate to the Target Directory**
-   Steps 6 and 7 can be replaced by running run_project.bat which is located in the project's home directory.
-   Move to the `target` directory:
+   Move to the `target` directory and run following command:
    ```bash
    cd target
-   ```
-
-8. **Run the Application**  
-   Execute the following command to start the game:
-   ```bash
    java --module-path ".\project-0.0.1-SNAPSHOT.jar;.\libs" -m cz.vsb.project/cz.vsb.App
    ```
+
+
 
 Now the game should be up and running!
 
