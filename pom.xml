@@ -129,41 +129,6 @@
 					<mainClass>cz.vsb/cz.vsb.App</mainClass>
 				</configuration>
 			</plugin>
-
-
-
-		<!-- Fat jar -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.6.0</version>
-
-				<configuration>
-					<!--Set behavior of plugin, which archives should be created see
-		  https://maven.apache.org/plugins/maven-assembly-plugin/descriptor-refs.html-->
-					<descriptorRefs>
-						<!--Create FAT jar-->
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<!--Automatically create and add file MANIFEST.MF into jar and set specified properties-->
-						<manifest>
-							<mainClass>cz.vsb.App</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-
-				<executions>
-					<!-- Setup that goal single should be automatically executed during phase package-->
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 </project>
