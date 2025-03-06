@@ -54,6 +54,8 @@ Before you begin, ensure you have the following installed:
 
 ## Steps to Run the Game
 
+This guide is working only for Windows users, if you want to run this game on linux you have to change plugin in pom file.
+
 1. **Clone the Repository**  
    Clone the project repository to your local machine:
    ```bash
