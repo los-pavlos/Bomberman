@@ -69,6 +69,7 @@ public class GameController {
 
     @FXML
     void menu(ActionEvent event) {
+        SoundManager.playClickSound();
         SoundManager.stopBackgroundMusic();
         timer.stop();
         try {
@@ -89,6 +90,7 @@ public class GameController {
 
     @FXML
     void reset(ActionEvent event) {
+        SoundManager.playClickSound();
         SoundManager.playBackgroundMusic();
         timer.resetGame();
         topLabel.setText("Game is running...");

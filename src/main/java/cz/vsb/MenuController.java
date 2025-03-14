@@ -72,12 +72,12 @@ public class MenuController {
     private void switchToGameScene() {
         try {
             SoundManager.playClickSound();
-            setCheckbxRandMap(); // Ensure this is called before switching scenes
+            setCheckbxRandMap();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
             Parent root = loader.load();
 
             GameController gameController = loader.getController();
-            gameController.setPlayerNames(tfPlayer1.getText(), tfPlayer2.getText()); // Pass the player names
+            gameController.setPlayerNames(tfPlayer1.getText(), tfPlayer2.getText()); // Pass the player names to scene
 
             Scene scene = new Scene(root);
             Stage stage = (Stage) btnPlay.getScene().getWindow();
