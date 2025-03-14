@@ -53,7 +53,9 @@ public class MenuController {
         // Set Play button action
         btnPlay.setOnAction(event ->{
             SoundManager.playClickSound();
-            switchToGameScene()});
+            switchToGameScene();
+        });
+
         leaderboard.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); // automatic column size
     }
 
