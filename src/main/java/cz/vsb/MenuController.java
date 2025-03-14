@@ -51,7 +51,9 @@ public class MenuController {
         loadTopPlayers();
 
         // Set Play button action
-        btnPlay.setOnAction(event -> switchToGameScene());
+        btnPlay.setOnAction(event ->{
+            SoundManager.playClickSound();
+            switchToGameScene()});
         leaderboard.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); // automatic column size
     }
 
@@ -71,7 +73,7 @@ public class MenuController {
 
     private void switchToGameScene() {
         try {
-            SoundManager.playClickSound();
+            
             setCheckbxRandMap();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
             Parent root = loader.load();
