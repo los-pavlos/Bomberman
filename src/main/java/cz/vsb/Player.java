@@ -152,6 +152,7 @@ public class Player implements Drawable {
         if (playerBlockX == boost.getX() && playerBlockY == boost.getY()) {
             if (!boost.isUsed() && boost.getDuration() >= 0)
                 boost.applyEffect(this);
+
         }
     }
 
@@ -182,6 +183,8 @@ public class Player implements Drawable {
     }
 
     public void hit() {
+        SoundManager.stopBackgroundMusic();
+        SoundManager.playDeathSound();
         firePlayerDead();
     }
 }

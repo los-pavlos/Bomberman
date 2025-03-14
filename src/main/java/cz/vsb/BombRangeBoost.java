@@ -11,6 +11,7 @@ public class BombRangeBoost extends Boost {
 
     @Override
     public void applyEffect(Player player) {
+        SoundManager.playPickupSound();
         player.setBombRange(4);
         isUsed = true;
         this.player = player;

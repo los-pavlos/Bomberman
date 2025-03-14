@@ -20,6 +20,7 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
+
 		switchToMenuScene();
 		primaryStage.setTitle("Bomberman Game");
 		primaryStage.resizableProperty().set(false);

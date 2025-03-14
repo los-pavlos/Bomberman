@@ -71,6 +71,7 @@ public class MenuController {
 
     private void switchToGameScene() {
         try {
+            SoundManager.playClickSound();
             setCheckbxRandMap(); // Ensure this is called before switching scenes
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
             Parent root = loader.load();

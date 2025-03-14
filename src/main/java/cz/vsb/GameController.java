@@ -69,6 +69,7 @@ public class GameController {
 
     @FXML
     void menu(ActionEvent event) {
+        SoundManager.stopBackgroundMusic();
         timer.stop();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
@@ -88,6 +89,7 @@ public class GameController {
 
     @FXML
     void reset(ActionEvent event) {
+        SoundManager.playBackgroundMusic();
         timer.resetGame();
         topLabel.setText("Game is running...");
         timer.start();
@@ -107,6 +109,7 @@ public class GameController {
             }
         });
         btnMenu.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+
             if (event.getCode() == javafx.scene.input.KeyCode.SPACE) {
                 event.consume();  // Stop default action of space key
             }
@@ -116,12 +119,14 @@ public class GameController {
     }
 
     private void initializeTimer() {
+        SoundManager.playBackgroundMusic();
         timer = new DrawingThread(canvas, this, player1Name, player2Name);
         timer.start();
         topLabel.setText("Game is running...");
     }
 
     public void stop() {
+        SoundManager.stopBackgroundMusic();
         timer.stop();
     }
 
@@ -183,6 +188,7 @@ public class GameController {
         @Override
         public void playerDead(Player player) {
             setTopLabel(player.getName() + " is dead!!!!!!!!");
+            SoundManager.stopBackgroundMusic();
             if (!gameEnded) {
                 ScoreManager scoreManager = new ScoreManager();
                 if (player.getName().equals(player1Name)) {

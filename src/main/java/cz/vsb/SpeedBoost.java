@@ -10,6 +10,7 @@ public class SpeedBoost extends Boost {
 
     @Override
     public void applyEffect(Player player) {
+        SoundManager.playPickupSound();
         player.setX((player.getX()-player.getX()%8));
         player.setY(player.getY()-player.getY()%8);
 

@@ -76,6 +76,8 @@ public class Bomb implements Drawable {
     }
 
     public void activate() {
+
+        SoundManager.playExplosionSound();
         isActive = false;
     }
 
