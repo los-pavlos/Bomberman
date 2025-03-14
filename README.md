@@ -7,7 +7,7 @@ Bomberman is a classic multiplayer game written in **Java** using **JavaFX** and
 ## Technologies  
 
 - **Java 21+**  
-- **JavaFX** for the graphical user interface  
+- **JavaFX** for the graphical user interface and sound effects
 - **Maven** for dependency management and project build  
 
 
